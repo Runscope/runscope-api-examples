@@ -5,7 +5,7 @@
     "description": "Manage Runscope programatically.",
     "version": "1.0.0"
   },
-  "host": "api-runscope-com-4tsygr5wkuuc.runscope.net",
+  "host": "api.runscope.com",
   "schemes": [
     "https"
   ],
@@ -14,7 +14,8 @@
     "runscope_auth": {
       "type": "oauth2",
       "authorizationUrl": "https://www.runscope.com/signin/oauth/authorize",
-      "flow": "implicit",
+      "tokenUrl": "https://www.runscope.com/signin/oauth/access_token",
+      "flow": "application",
       "scopes": {
         "api:read": "Default read access.",
         "bucket:auth_token": "Allows you to read all bucket information, including Authenticated Buckets.",

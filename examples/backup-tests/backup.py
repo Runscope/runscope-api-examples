@@ -3,6 +3,7 @@ import time
 import requests
 import os
 import sys
+import inspect
 
 # Global dictionary
 g = {}
@@ -11,6 +12,8 @@ g = {}
 def get_bucket_list():
     url = "%s/buckets" % g['base_url']
     r = requests.get(url, headers=g['headers'])
+    if (r.status_code != 200):
+        _api_error_exit( r.status_code )
     buckets_json = json.loads(r.text)
     return buckets_json['data']
 
@@ -18,14 +21,23 @@ def get_bucket_list():
 def get_bucket_test_list( bucket_key ):
     url = "%s/buckets/%s/tests" % (g['base_url'],bucket_key)
     r = requests.get(url,headers=g['headers'])
+    if (r.status_code != 200):
+        _api_error_exit( r.status_code )
     tests_json = json.loads(r.text)
     return tests_json['data']
 
 # Retrieves test details for a given test uuid in a bucket
 def get_test_details( bucket_key,test_uuid ):
     r = requests.get("%s/buckets/%s/tests/%s" % (g['base_url'],bucket_key,test_uuid), headers=g['headers'])
+    if (r.status_code != 200):
+        _api_error_exit( r.status_code )
     test_json = json.loads(r.text)
     return test_json['data']
+
+# Exits on API error, displaying status code and function
+# name where error occurred.
+def _api_error_exit( status_code ):
+    sys.exit('API error - HTTP status code %s in %s' % (status_code,inspect.stack()[1][3]))
 
 def main():
     with open('config.json') as config_file:

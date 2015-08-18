@@ -1,0 +1,84 @@
+{
+    "name": "Deck of Cards - Shuffle Draw",
+    "description": "Shuffle some decks, draw out cards",
+    "steps": [
+        {
+            "body": "",
+            "form": {},
+            "headers": {},
+            "url": "http://deckofcardsapi.com/api/deck/new/shuffle/?deck_count={{random_int(2,6)}}",
+            "variables": [
+                {
+                    "source": "response_json",
+                    "property": "deck_id",
+                    "name": "deck_id"
+                },
+                {
+                    "source": "response_json",
+                    "property": "remaining",
+                    "name": "step_1_remaining"
+                }
+            ],
+            "args": {},
+            "step_type": "request",
+            "auth": {},
+            "note": "Shuffle (rand(1,5)) deck of cards",
+            "fragment": "",
+            "assertions": [
+                {
+                    "comparison": "equal_number",
+                    "value": 200,
+                    "source": "response_status"
+                },
+                {
+                    "comparison": "equal",
+                    "property": "shuffled",
+                    "value": "true",
+                    "source": "response_json"
+                },
+                {
+                    "comparison": "equal",
+                    "property": "success",
+                    "value": "true",
+                    "source": "response_json"
+                }
+            ],
+            "scripts": [],
+            "data": "",
+            "method": "GET"
+        },
+        {
+            "body": "",
+            "form": {},
+            "url": "http://deckofcardsapi.com/api/deck/{{deck_id}}/draw/?count={{random_int(1,20)}}",
+            "variables": [],
+            "step_type": "request",
+            "auth": {},
+            "fragment": "",
+            "note": "Draw (rand(1,20)) cards & test remaining",
+            "headers": {},
+            "assertions": [
+                {
+                    "comparison": "equal_number",
+                    "value": 200,
+                    "source": "response_status"
+                },
+                {
+                    "comparison": "equal",
+                    "property": "success",
+                    "value": "true",
+                    "source": "response_json"
+                },
+                {
+                    "comparison": "is_less_than",
+                    "property": "remaining",
+                    "value": "step_1_remaining",
+                    "source": "response_json"
+                }
+            ],
+            "scripts": [],
+            "method": "GET"
+        }
+    ],
+    "schedules": []
+}

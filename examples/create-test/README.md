@@ -1,4 +1,4 @@
-Runscope Tests in JSON
+Creating Runscope Tests with API
 ============
 A collection of tests in JSON that you can instantly
 import into your Runscope account via the API. Also

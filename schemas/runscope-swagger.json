@@ -1,0 +1,730 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Runscope API",
+    "description": "Manage Runscope programatically.",
+    "version": "1.0.0"
+  },
+  "host": "api-runscope-com-4tsygr5wkuuc.runscope.net",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/",
+  "securityDefinitions": {
+    "runscope_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "https://www.runscope.com/signin/oauth/authorize",
+      "flow": "implicit",
+      "scopes": {
+        "api:read": "Default read access.",
+        "bucket:auth_token": "Allows you to read all bucket information, including Authenticated Buckets.",
+        "bucket:write": "Allows you to create new buckets on behalf of the user (up to their plan limit).",
+        "message:write": "Allows you to create new messages on behalf of the user (up to their plan limit).",
+        "account:email": "Allows you to read the email addresses of user accounts.",
+        "team:read": "Allows you to read team details such as lists of team members and external service integrations.",
+        "test:read": "Allows you to read the details of API tests.",
+        "test:write": "Allows you to create, update and delete details of API tests."
+      }
+    }
+  },
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/account": {
+      "get": {
+        "summary": "Account Resource",
+        "description": "Information about the authorized account.",
+        "tags": [
+          "Account"
+        ],
+        "responses": {
+          "200": {
+            "description": "Account owner and team information.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/Account"
+                },
+                "meta": {
+                  "$ref": "#/definitions/Meta"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "account:email"
+            ]
+          }
+        ]
+      }
+    },
+    "/teams/{team_uuid}/people": {
+      "get": {
+        "summary": "Teams Resource",
+        "description": "List people and integrations associated with a given team.",
+        "parameters": [
+          {
+            "name": "team_uuid",
+            "in": "path",
+            "description": "Unique identifier for team",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Account"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of people associated with the team.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Account"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "account:email",
+              "team:read"
+            ]
+          }
+        ]
+      }
+    },
+    "/teams/{team_uuid}/integrations": {
+      "get": {
+        "summary": "Team integrations list",
+        "description": "Returns a list of integrations configured for the team.",
+        "parameters": [
+          {
+            "name": "team_uuid",
+            "in": "path",
+            "description": "Unique identifier for team",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Account"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of people associated with the team.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Account"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "team:read"
+            ]
+          }
+        ]
+      }
+    },
+    "/buckets": {
+      "get": {
+        "summary": "Returns a list of buckets.",
+        "tags": [
+          "Buckets"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of buckets associated with this authenticated account.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/Account"
+                },
+                "meta": {
+                  "$ref": "#/definitions/Meta"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "summary": "Create a new bucket",
+        "tags": [
+          "Buckets"
+        ],
+        "parameters": [
+          {
+            "name": "NewBucket",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewBucket"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bucket details.",
+            "schema": {
+              "$ref": "#/definitions/Bucket"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "bucket:write"
+            ]
+          }
+        ]
+      }
+    },
+    "/buckets/{bucket_key}": {
+      "get": {
+        "summary": "Returns a single bucket resource.",
+        "tags": [
+          "Buckets"
+        ],
+        "parameters": [
+          {
+            "name": "bucket_key",
+            "in": "path",
+            "description": "Unique identifier for a bucket",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bucket details.",
+            "schema": {
+              "$ref": "#/definitions/Bucket"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete a single bucket resource.",
+        "tags": [
+          "Buckets"
+        ],
+        "parameters": [
+          {
+            "name": "bucket_key",
+            "in": "path",
+            "description": "Unique identifier for a bucket",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content with no body."
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "bucket:write"
+            ]
+          }
+        ]
+      }
+    },
+    "/buckets/{bucket_key}/messages": {
+      "get": {
+        "summary": "Retrieve a list of messages in a bucket",
+        "tags": [
+          "Buckets Messages"
+        ],
+        "parameters": [
+          {
+            "name": "bucket_key",
+            "in": "path",
+            "description": "Unique identifier for a bucket",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "type": "int",
+            "description": "Maxiumum number of messages to return. Default 50, max 1000."
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "type": "int",
+            "description": "Only return messages after the given Unix timestamp"
+          },
+          {
+            "name": "before",
+            "in": "query",
+            "type": "int",
+            "description": "Only return messages before the given Unix timestamp"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of messages in a bucket",
+            "schema": {
+              "$ref": "#/definitions/Bucket"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "messages:read"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Clear a bucket (remove all messages).",
+        "tags": [
+          "Buckets Messages"
+        ],
+        "parameters": [
+          {
+            "name": "bucket_key",
+            "in": "path",
+            "description": "Unique identifier for a bucket",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content with no body.",
+            "schema": {
+              "$ref": "#/definitions/Bucket"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "messages:write"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "summary": "Create a message",
+        "tags": [
+          "Buckets Messages"
+        ],
+        "parameters": [
+          {
+            "name": "NewMessage",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewMessage"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "New message.",
+            "schema": {
+              "$ref": "#/definitions/Bucket"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "messages:write"
+            ]
+          }
+        ]
+      }
+    },
+    "/buckets/{bucket_key}/errors": {
+      "get": {
+        "summary": "Retrieve a list of error messages in a bucket",
+        "tags": [
+          "Buckets Messages"
+        ],
+        "parameters": [
+          {
+            "name": "bucket_key",
+            "in": "path",
+            "description": "Unique identifier for a bucket",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "type": "int",
+            "description": "Maxiumum number of messages to return. Default 50, max 1000."
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "type": "int",
+            "description": "Only return messages after the given Unix timestamp"
+          },
+          {
+            "name": "before",
+            "in": "query",
+            "type": "int",
+            "description": "Only return messages before the given Unix timestamp"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of error messages in a bucket",
+            "schema": {
+              "$ref": "#/definitions/Bucket"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "messages:read"
+            ]
+          }
+        ]
+      }
+    },
+    "/history": {
+      "get": {
+        "summary": "User Activity",
+        "description": "The User Activity endpoint returns data about a user's lifetime activity with Uber. The response will include pickup locations and times, dropoff locations and times, the distance of past requests, and information about which products were requested.<br><br>The history array in the response will have a maximum length based on the limit parameter. The response value count may exceed limit, therefore subsequent API requests may be necessary.",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "type": "integer",
+            "format": "int32",
+            "description": "Offset the list of returned results by this amount. Default is zero."
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "integer",
+            "format": "int32",
+            "description": "Number of items to retrieve. Default is 5, maximum is 100."
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "History information for the given user",
+            "schema": {
+              "$ref": "#/definitions/Activities"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Meta": {
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Success or failure status of call."
+        }
+      }
+    },
+    "Account": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the person for this account."
+        },
+        "uuid": {
+          "type": "string",
+          "description": "The unique identifier for this account."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address for this account. Only present if authorized with the account:email scope."
+        },
+        "teams": {
+          "type": "array",
+          "items": {
+            "$ref": "/#definitions/Team"
+          }
+        }
+      }
+    },
+    "Team": {
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "description": "The unique identifier for this team."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of this team."
+        }
+      }
+    },
+    "Bucket": {
+      "properties": {
+        "auth_token": {
+          "description": "Bucket auth token if set, otherwise this value is null.",
+          "type": "string"
+        },
+        "default": {
+          "description": "True if this bucket is the 'default' for a team. Default buckets cannot be deleted.",
+          "type": "boolean"
+        },
+        "key": {
+          "description": "The unique identifier used to address a bucket.",
+          "type": "string"
+        },
+        "name": {
+          "description": "The name of this bucket as displayed in your dashboard.",
+          "type": "string"
+        },
+        "team": {
+          "$ref": "#/definitions/Team"
+        },
+        "verify_ssl": {
+          "description": "True if this bucket is configured to verify ssl for requests made to it.",
+          "type": "boolean"
+        }
+      }
+    },
+    "NewMessage": {
+      "properties": {
+        "request": {
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+              "description": "HTTP method name (GET, POST, PUT, HEAD, OPTIONS, PATCH, DELETE, etc.)",
+              "required": true
+            },
+            "url": {
+              "type": "string",
+              "description": "Full URL of the request, including URL querystring parameters.",
+              "required": true
+            },
+            "headers": {
+              "type": "string",
+              "description": "JSON object of header keys and values -- with values as a string or an array of strings."
+            },
+            "form": {
+              "type": "string",
+              "description": "JSON object of set of form fields included in a POST request. \nValues can either be represented as a string or as an array of strings.\n"
+            },
+            "body": {
+              "type": "string",
+              "description": "HTTP request body (most commonly used for POST and PUT requests). If the\nrequest body contains binary data that cannot be included directly in the \nJSON, encode the content with Base64 and include the body_encoding attribute accordingly.\n"
+            },
+            "body_encoding": {
+              "type": "string",
+              "description": "If the request body was encoded with Base64, this field should be present and set to \n\"base64\". If not specified, defaults to \"plaintext\"\n"
+            },
+            "timestamp": {
+              "type": "float",
+              "description": "Unix timestamp indicating when the request was made."
+            }
+          }
+        },
+        "response": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "integer",
+              "description": "HTTP status code returned in the response.",
+              "required": true
+            },
+            "reason": {
+              "type": "string",
+              "description": "Textual description of HTTP status code. This will be set automatically if not \nprovided in the API call. For example, if the status code is 404, this will be \nset to \"Not Found\" unless you explicitly specify a different reason.\n"
+            },
+            "headers": {
+              "type": "string",
+              "description": "JSON object of header keys and values -- with values as a string or an array of strings."
+            },
+            "body": {
+              "type": "string",
+              "description": "HTTP response body. If the response body contains binary data that cannot be\nincluded directly in the JSON, you should encode the content with Base64.\n"
+            },
+            "body_encoding": {
+              "type": "string",
+              "description": "If the request body was encoded with Base64, this field should be present and set to \n\"base64\". If not specified, defaults to \"plaintext\"\n"
+            },
+            "resopnse_time": {
+              "type": "float",
+              "description": "Length of time it took to receive the response, in seconds."
+            },
+            "timestamp": {
+              "type": "float",
+              "description": "Unix timestamp indicating when the request was made."
+            }
+          }
+        }
+      }
+    },
+    "NewBucket": {
+      "properties": {
+        "name": {
+          "description": "Name of this bucket",
+          "type": "string"
+        },
+        "team_uuid": {
+          "description": "Unique identifier for the team this to create this bucket for.",
+          "type": "string"
+        }
+      }
+    },
+    "Message": {
+      "properties": {
+        "product_id": {
+          "type": "string",
+          "description": "Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of product."
+        },
+        "display_name": {
+          "type": "string",
+          "description": "Display name of product."
+        },
+        "capacity": {
+          "type": "string",
+          "description": "Capacity of product. For example, 4 people."
+        },
+        "image": {
+          "type": "string",
+          "description": "Image URL representing the product."
+        }
+      }
+    },
+    "Error": {
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

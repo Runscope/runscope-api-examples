@@ -9,14 +9,17 @@ import inspect
 g = {}
 
 # Retrieves list of buckets for the authed account
+# https://www.runscope.com/docs/api/buckets#bucket-list
 def get_bucket_list():
     return _api_get_request( '/buckets', 200 )
 
 # Retrieves test list for a given bucket key
+# https://www.runscope.com/docs/api/tests#list
 def get_bucket_test_list( bucket_key ):
     return _api_get_request( '/buckets/%s/tests' % bucket_key, 200 )
 
 # Retrieves test details for a given test uuid in a bucket
+# https://www.runscope.com/docs/api/tests#detail
 def get_test_details( bucket_key,test_uuid ):
     return _api_get_request( '/buckets/%s/tests/%s' % (bucket_key,test_uuid), 200 )
 

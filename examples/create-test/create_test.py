@@ -7,12 +7,14 @@ import inspect
 g = {}
 
 # Retrieve name from account resource
+# https://www.runscope.com/docs/api/account
 def get_account_info():
     j = _api_get_request( "/account", 200 )
     g["name"] = j["name"]
     print "\nHello %s.\n" % g["name"]
 
 # Retrieves list of buckets for the authed account
+# https://www.runscope.com/docs/api/buckets#bucket-list
 def get_bucket_list():
     return _api_get_request( "/buckets", 200 )
 
@@ -31,7 +33,7 @@ def select_bucket():
     g["bucket_key"] = buckets[selection]["key"]
 
 # Read and validate test from JSON file
-def read_test():
+def read_test_file():
     try:
         # Open and read the file
         f = open(sys.argv[1], "r")
@@ -51,6 +53,7 @@ def read_test():
     g["new_test"] = json.dumps(j)
 
 # Create test with API
+# https://www.runscope.com/docs/api/tests#create
 def create_test():
     data = _api_post( "/buckets/%s/tests" % g["bucket_key"], g["new_test"], 201)
     print "\nNew test created.\n"
@@ -81,7 +84,7 @@ def main():
     g["headers"] = {"Authorization":"Bearer %s" % config["runscope"]["access_token"],"Content-type":"application/json"}
     g["base_url"] = "https://api.runscope.com"
 
-    read_test()
+    read_test_file()
     select_bucket()
     create_test()
     sys.exit()

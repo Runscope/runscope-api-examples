@@ -71,13 +71,13 @@
                 ]
             }
         },
-        "/teams/{team_uuid}/people": {
+        "/teams/{team_id}/people": {
             "get": {
                 "summary": "Teams Resource",
                 "description": "List people and integrations associated with a given team.",
                 "parameters": [
                     {
-                        "name": "team_uuid",
+                        "name": "team_id",
                         "in": "path",
                         "description": "Unique identifier for team",
                         "required": true,
@@ -115,13 +115,13 @@
                 ]
             }
         },
-        "/teams/{team_uuid}/integrations": {
+        "/teams/{team_id}/integrations": {
             "get": {
                 "summary": "Team integrations list",
                 "description": "Returns a list of integrations configured for the team.",
                 "parameters": [
                     {
-                        "name": "team_uuid",
+                        "name": "team_id",
                         "in": "path",
                         "description": "Unique identifier for team",
                         "required": true,
@@ -233,7 +233,7 @@
                 ]
             }
         },
-        "/buckets/{bucket_key}": {
+        "/buckets/{bucketKey}": {
             "get": {
                 "summary": "Returns a single bucket resource.",
                 "tags": [
@@ -241,7 +241,7 @@
                 ],
                 "parameters": [
                     {
-                        "name": "bucket_key",
+                        "name": "bucketKey",
                         "in": "path",
                         "description": "Unique identifier for a bucket",
                         "required": true,
@@ -277,7 +277,7 @@
                 ],
                 "parameters": [
                     {
-                        "name": "bucket_key",
+                        "name": "bucketKey",
                         "in": "path",
                         "description": "Unique identifier for a bucket",
                         "required": true,
@@ -305,15 +305,15 @@
                 ]
             }
         },
-        "/buckets/{bucket_key}/messages": {
+        "/buckets/{bucketKey}/messages": {
             "get": {
                 "summary": "Retrieve a list of messages in a bucket",
                 "tags": [
-                    "Buckets Messages"
+                    "Messages"
                 ],
                 "parameters": [
                     {
-                        "name": "bucket_key",
+                        "name": "bucketKey",
                         "in": "path",
                         "description": "Unique identifier for a bucket",
                         "required": true,
@@ -364,11 +364,11 @@
             "delete": {
                 "summary": "Clear a bucket (remove all messages).",
                 "tags": [
-                    "Buckets Messages"
+                    "Messages"
                 ],
                 "parameters": [
                     {
-                        "name": "bucket_key",
+                        "name": "bucketKey",
                         "in": "path",
                         "description": "Unique identifier for a bucket",
                         "required": true,
@@ -401,7 +401,7 @@
             "post": {
                 "summary": "Create a message",
                 "tags": [
-                    "Buckets Messages"
+                    "Messages"
                 ],
                 "parameters": [
                     {
@@ -437,15 +437,15 @@
                 ]
             }
         },
-        "/buckets/{bucket_key}/errors": {
+        "/buckets/{bucketKey}/errors": {
             "get": {
                 "summary": "Retrieve a list of error messages in a bucket",
                 "tags": [
-                    "Buckets Messages"
+                    "Messages"
                 ],
                 "parameters": [
                     {
-                        "name": "bucket_key",
+                        "name": "bucketKey",
                         "in": "path",
                         "description": "Unique identifier for a bucket",
                         "required": true,
@@ -494,34 +494,32 @@
                 ]
             }
         },
-        "/history": {
+        "/buckets/{bucketKey}/messages/{messageId}": {
             "get": {
-                "summary": "User Activity",
-                "description": "The User Activity endpoint returns data about a user's lifetime activity with Uber. The response will include pickup locations and times, dropoff locations and times, the distance of past requests, and information about which products were requested.<br><br>The history array in the response will have a maximum length based on the limit parameter. The response value count may exceed limit, therefore subsequent API requests may be necessary.",
+                "summary": "Retrieve the details for a single message.",
+                "tags": [
+                    "Messages"
+                ],
                 "parameters": [
                     {
-                        "name": "offset",
-                        "in": "query",
-                        "type": "integer",
-                        "format": "int32",
-                        "description": "Offset the list of returned results by this amount. Default is zero."
+                        "name": "bucketKey",
+                        "in": "path",
+                        "description": "Unique identifier for a bucket",
+                        "required": true,
+                        "type": "string"
                     },
                     {
-                        "name": "limit",
+                        "name": "messageId",
                         "in": "query",
-                        "type": "integer",
-                        "format": "int32",
-                        "description": "Number of items to retrieve. Default is 5, maximum is 100."
+                        "type": "string",
+                        "description": "The unique identifier for this message"
                     }
-                ],
-                "tags": [
-                    "User"
                 ],
                 "responses": {
                     "200": {
-                        "description": "History information for the given user",
+                        "description": "List of messages in a bucket",
                         "schema": {
-                            "$ref": "#/definitions/Activities"
+                            "$ref": "#/definitions/Bucket"
                         }
                     },
                     "default": {
@@ -530,7 +528,15 @@
                             "$ref": "#/definitions/Error"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "runscope_auth": [
+                            "api:read",
+                            "messages:read"
+                        ]
+                    }
+                ]
             }
         },
         "/buckets/{bucketKey}/tests": {
@@ -609,7 +615,7 @@
                 ]
             }
         },
-        "/buckets/{bucketKey}/tests/{test_uuid}": {
+        "/buckets/{bucketKey}/tests/{testId}": {
             "delete": {
                 "summary": "Delete a single test.",
                 "tags": [
@@ -617,7 +623,7 @@
                 ],
                 "parameters": [
                     {
-                        "name": "test_uuid",
+                        "name": "testId",
                         "in": "path",
                         "type": "string",
                         "required": true,
@@ -627,6 +633,382 @@
                 "responses": {
                     "204": {
                         "description": "No content with no body."
+                    }
+                },
+                "security": [
+                    {
+                        "runscope_auth": [
+                            "api:read",
+                            "test:write"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/buckets/{bucketKey}/tests/{testId}/steps": {
+            "get": {
+                "summary": "List test steps for a test.",
+                "tags": [
+                    "Test Steps"
+                ],
+                "parameters": [
+                    {
+                        "name": "testId",
+                        "in": "path",
+                        "type": "string",
+                        "required": true,
+                        "description": "Unique identifier for a test"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of test steps for a test"
+                    }
+                },
+                "security": [
+                    {
+                        "runscope_auth": [
+                            "api:read",
+                            "test:read"
+                        ]
+                    }
+                ]
+            },
+            "post": {
+                "summary": "Add new test step.",
+                "tags": [
+                    "Test Steps"
+                ],
+                "parameters": [
+                    {
+                        "name": "testId",
+                        "in": "path",
+                        "type": "string",
+                        "required": true,
+                        "description": "Unique identifier for a test"
+                    },
+                    {
+                        "name": "NewStep",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NewStep"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Details of the new test step."
+                    }
+                },
+                "security": [
+                    {
+                        "runscope_auth": [
+                            "api:read",
+                            "test:write"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/buckets/{bucketKey}/tests/{testId}/steps/{step_id}": {
+            "put": {
+                "summary": "Update the details of a single test step.",
+                "tags": [
+                    "Test Steps"
+                ],
+                "parameters": [
+                    {
+                        "name": "testId",
+                        "in": "path",
+                        "type": "string",
+                        "required": true,
+                        "description": "Unique identifier for a test"
+                    },
+                    {
+                        "name": "NewStep",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NewStep"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of test steps for a test"
+                    }
+                },
+                "security": [
+                    {
+                        "runscope_auth": [
+                            "api:read",
+                            "test:write"
+                        ]
+                    }
+                ]
+            },
+            "delete": {
+                "summary": "Delete a step from a test.",
+                "tags": [
+                    "Test Steps"
+                ],
+                "parameters": [
+                    {
+                        "name": "testId",
+                        "in": "path",
+                        "type": "string",
+                        "required": true,
+                        "description": "Unique identifier for a test"
+                    },
+                    {
+                        "name": "step_id",
+                        "in": "path",
+                        "type": "string",
+                        "required": true,
+                        "description": "Unique identifier for a step"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content with no body."
+                    }
+                },
+                "security": [
+                    {
+                        "runscope_auth": [
+                            "api:read",
+                            "test:write"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/buckets/{bucketKey}/tests/{testId}/environments": {
+            "get": {
+                "summary": "Return details of the test's environments (only those that belong to the specified test)",
+                "tags": [
+                    "Test Environments"
+                ],
+                "parameters": [
+                    {
+                        "name": "bucketKey",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "testId",
+                        "in": "path",
+                        "type": "string",
+                        "required": true,
+                        "description": "Unique identifier for a test"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of environments belonging to this test."
+                    }
+                },
+                "security": [
+                    {
+                        "runscope_auth": [
+                            "api:read",
+                            "test:read"
+                        ]
+                    }
+                ]
+            },
+            "post": {
+                "summary": "Create new test environment.",
+                "tags": [
+                    "Test Environments"
+                ],
+                "parameters": [
+                    {
+                        "name": "bucketKey",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "testId",
+                        "in": "path",
+                        "type": "string",
+                        "required": true,
+                        "description": "Unique identifier for a test"
+                    },
+                    {
+                        "name": "NewEnvironment",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NewEnvironment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Details of the new test environment."
+                    }
+                },
+                "security": [
+                    {
+                        "runscope_auth": [
+                            "api:read",
+                            "test:write"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/buckets/{bucketKey}/tests/{testId}/environments/{environmentId}": {
+            "put": {
+                "summary": "Update the details of a test environment.",
+                "tags": [
+                    "Test Environments"
+                ],
+                "parameters": [
+                    {
+                        "name": "bucketKey",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "testId",
+                        "in": "path",
+                        "type": "string",
+                        "required": true,
+                        "description": "Unique identifier for a test"
+                    },
+                    {
+                        "name": "environmentId",
+                        "in": "path",
+                        "type": "string",
+                        "required": true,
+                        "description": "Unique identifier for a test environment"
+                    },
+                    {
+                        "name": "ModifiedEnvironment",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NewEnvironment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Details of the modified test environment."
+                    }
+                },
+                "security": [
+                    {
+                        "runscope_auth": [
+                            "api:read",
+                            "test:write"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/buckets/{bucketKey}/environments": {
+            "get": {
+                "summary": "Returns list of shared environments for a specified bucket.",
+                "tags": [
+                    "Shared Environments"
+                ],
+                "parameters": [
+                    {
+                        "name": "bucketKey",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of shared environments belonging to this bucket."
+                    }
+                },
+                "security": [
+                    {
+                        "runscope_auth": [
+                            "api:read",
+                            "test:read"
+                        ]
+                    }
+                ]
+            },
+            "post": {
+                "summary": "Create new shared environment.",
+                "tags": [
+                    "Shared Environments"
+                ],
+                "parameters": [
+                    {
+                        "name": "bucketKey",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "NewEnvironment",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NewEnvironment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Details of the new test environment."
+                    }
+                },
+                "security": [
+                    {
+                        "runscope_auth": [
+                            "api:read",
+                            "test:write"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/buckets/{bucketKey}/environments/{environmentId}": {
+            "put": {
+                "summary": "Update the details of a test environment.",
+                "tags": [
+                    "Shared Environments"
+                ],
+                "parameters": [
+                    {
+                        "name": "bucketKey",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "environmentId",
+                        "in": "path",
+                        "type": "string",
+                        "required": true,
+                        "description": "Unique identifier for a shared environment"
+                    },
+                    {
+                        "name": "ModifiedEnvironment",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NewEnvironment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Details of the modified test environment."
                     }
                 },
                 "security": [
@@ -655,7 +1037,7 @@
                     "type": "string",
                     "description": "The name of the person for this account."
                 },
-                "uuid": {
+                "id": {
                     "type": "string",
                     "description": "The unique identifier for this account."
                 },
@@ -673,7 +1055,7 @@
         },
         "Team": {
             "properties": {
-                "uuid": {
+                "id": {
                     "type": "string",
                     "description": "The unique identifier for this team."
                 },
@@ -789,9 +1171,25 @@
                     "description": "Name of this bucket",
                     "type": "string"
                 },
-                "team_uuid": {
+                "team_id": {
                     "description": "Unique identifier for the team this to create this bucket for.",
                     "type": "string"
+                }
+            }
+        },
+        "NewStep": {
+            "properties": {
+                "step_type": {
+                    "type": "string",
+                    "description": "Type of test step -- request, pause, condition or ghost-inspector."
+                }
+            }
+        },
+        "NewEnvironment": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Name of this environment."
                 }
             }
         },

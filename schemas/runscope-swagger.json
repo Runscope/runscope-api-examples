@@ -71,13 +71,13 @@
                 ]
             }
         },
-        "/teams/{team_id}/people": {
+        "/teams/{teamId}/people": {
             "get": {
                 "summary": "Teams Resource",
                 "description": "List people and integrations associated with a given team.",
                 "parameters": [
                     {
-                        "name": "team_id",
+                        "name": "teamId",
                         "in": "path",
                         "description": "Unique identifier for team",
                         "required": true,
@@ -115,13 +115,13 @@
                 ]
             }
         },
-        "/teams/{team_id}/integrations": {
+        "/teams/{teamId}/integrations": {
             "get": {
                 "summary": "Team integrations list",
                 "description": "Returns a list of integrations configured for the team.",
                 "parameters": [
                     {
-                        "name": "team_id",
+                        "name": "teamId",
                         "in": "path",
                         "description": "Unique identifier for team",
                         "required": true,
@@ -539,6 +539,7 @@
                 ]
             }
         },
+
         "/buckets/{bucketKey}/tests": {
             "get": {
                 "summary": "Returns a list of tests.",
@@ -663,7 +664,7 @@
                 "responses": {
                     "200": {
                         "description": "List of test steps for a test"
-                    }
+		    }
                 },
                 "security": [
                     {
@@ -699,7 +700,7 @@
                 "responses": {
                     "201": {
                         "description": "Details of the new test step."
-                    }
+		    }
                 },
                 "security": [
                     {
@@ -711,7 +712,7 @@
                 ]
             }
         },
-        "/buckets/{bucketKey}/tests/{testId}/steps/{step_id}": {
+        "/buckets/{bucketKey}/tests/{testId}/steps/{stepId}": {
             "put": {
                 "summary": "Update the details of a single test step.",
                 "tags": [
@@ -737,7 +738,7 @@
                 "responses": {
                     "200": {
                         "description": "List of test steps for a test"
-                    }
+		    }
                 },
                 "security": [
                     {
@@ -748,6 +749,7 @@
                     }
                 ]
             },
+
             "delete": {
                 "summary": "Delete a step from a test.",
                 "tags": [
@@ -762,17 +764,18 @@
                         "description": "Unique identifier for a test"
                     },
                     {
-                        "name": "step_id",
+                        "name": "stepId",
                         "in": "path",
                         "type": "string",
                         "required": true,
                         "description": "Unique identifier for a step"
                     }
+
                 ],
                 "responses": {
                     "204": {
                         "description": "No content with no body."
-                    }
+		    }
                 },
                 "security": [
                     {
@@ -783,7 +786,8 @@
                     }
                 ]
             }
-        },
+
+       },
         "/buckets/{bucketKey}/tests/{testId}/environments": {
             "get": {
                 "summary": "Return details of the test's environments (only those that belong to the specified test)",
@@ -797,6 +801,7 @@
                         "type": "string",
                         "required": true
                     },
+
                     {
                         "name": "testId",
                         "in": "path",
@@ -808,7 +813,7 @@
                 "responses": {
                     "200": {
                         "description": "List of environments belonging to this test."
-                    }
+		    }
                 },
                 "security": [
                     {
@@ -831,6 +836,7 @@
                         "type": "string",
                         "required": true
                     },
+
                     {
                         "name": "testId",
                         "in": "path",
@@ -850,7 +856,7 @@
                 "responses": {
                     "201": {
                         "description": "Details of the new test environment."
-                    }
+		    }
                 },
                 "security": [
                     {
@@ -861,7 +867,8 @@
                     }
                 ]
             }
-        },
+	},
+
         "/buckets/{bucketKey}/tests/{testId}/environments/{environmentId}": {
             "put": {
                 "summary": "Update the details of a test environment.",
@@ -875,6 +882,7 @@
                         "type": "string",
                         "required": true
                     },
+
                     {
                         "name": "testId",
                         "in": "path",
@@ -901,7 +909,7 @@
                 "responses": {
                     "201": {
                         "description": "Details of the modified test environment."
-                    }
+		    }
                 },
                 "security": [
                     {
@@ -912,6 +920,7 @@
                     }
                 ]
             }
+
         },
         "/buckets/{bucketKey}/environments": {
             "get": {
@@ -930,7 +939,7 @@
                 "responses": {
                     "200": {
                         "description": "List of shared environments belonging to this bucket."
-                    }
+		    }
                 },
                 "security": [
                     {
@@ -965,7 +974,7 @@
                 "responses": {
                     "201": {
                         "description": "Details of the new test environment."
-                    }
+		    }
                 },
                 "security": [
                     {
@@ -976,7 +985,8 @@
                     }
                 ]
             }
-        },
+	},
+
         "/buckets/{bucketKey}/environments/{environmentId}": {
             "put": {
                 "summary": "Update the details of a test environment.",
@@ -1009,7 +1019,7 @@
                 "responses": {
                     "201": {
                         "description": "Details of the modified test environment."
-                    }
+		    }
                 },
                 "security": [
                     {
@@ -1020,7 +1030,12 @@
                     }
                 ]
             }
+
         }
+
+
+
+
     },
     "definitions": {
         "Meta": {
@@ -1171,28 +1186,28 @@
                     "description": "Name of this bucket",
                     "type": "string"
                 },
-                "team_id": {
+                "teamId": {
                     "description": "Unique identifier for the team this to create this bucket for.",
                     "type": "string"
                 }
             }
         },
-        "NewStep": {
+	"NewStep": {
             "properties": {
                 "step_type": {
                     "type": "string",
-                    "description": "Type of test step -- request, pause, condition or ghost-inspector."
-                }
-            }
-        },
-        "NewEnvironment": {
+		    "description": "Type of test step -- request, pause, condition or ghost-inspector."
+		}
+	    }
+	},
+	"NewEnvironment": {
             "properties": {
                 "name": {
                     "type": "string",
-                    "description": "Name of this environment."
-                }
-            }
-        },
+		    "description": "Name of this environment."
+		}
+	    }
+	},
         "Error": {
             "properties": {
                 "code": {

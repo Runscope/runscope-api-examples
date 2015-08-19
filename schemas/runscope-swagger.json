@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Runscope API",
-    "description": "Manage Runscope programatically.",
+    "description": "Manage Runscope programmatically.",
     "version": "1.0.0"
   },
   "host": "api.runscope.com",

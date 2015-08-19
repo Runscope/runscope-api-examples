@@ -2,25 +2,20 @@
   "swagger": "2.0",
   "info": {
     "title": "Runscope API",
-    "description": "Manage all of your Runscope tests programatically.",
+    "description": "Manage Runscope programmatically.",
     "version": "1.0.0"
   },
-  "host": "api-runscope-com-ggep55440e7t.runscope.net",
+  "host": "api.runscope.com",
   "schemes": [
     "https"
   ],
   "basePath": "/",
   "securityDefinitions": {
-    "bearer_uptop": {
-      "type": "apiKey",
-      "name": "swell",
-      "in": "header"
-    },
     "runscope_auth": {
       "type": "oauth2",
-      "authorizationUrl": "https://www-runscope-com-4tsygr5wkuuc.runscope.net/signin/oauth/authorize",
-      "tokenUrl": "https://www-runscope-com-4tsygr5wkuuc.runscope.net/signin/oauth/access_token",
-      "flow": "accessCode",
+      "authorizationUrl": "https://www.runscope.com/signin/oauth/authorize",
+      "tokenUrl": "https://www.runscope.com/signin/oauth/access_token",
+      "flow": "application",
       "scopes": {
         "api:read": "Default read access.",
         "bucket:auth_token": "Allows you to read all bucket information, including Authenticated Buckets.",
@@ -58,12 +53,21 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
-	  {
-            "bearer_uptop": []
-	  }
+          {
+            "runscope_auth": [
+              "api:read",
+              "account:email"
+            ]
+          }
         ]
       }
     },
@@ -92,11 +96,21 @@
                 "$ref": "#/definitions/Account"
               }
             }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
           {
-            "bearer_uptop": []
+            "runscope_auth": [
+              "api:read",
+              "account:email",
+              "team:read"
+            ]
           }
         ]
       }
@@ -126,11 +140,20 @@
                 "$ref": "#/definitions/Account"
               }
             }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
           {
-            "bearer_uptop": []
+            "runscope_auth": [
+              "api:read",
+              "team:read"
+            ]
           }
         ]
       }
@@ -155,11 +178,19 @@
                 }
               }
             }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
           {
-            "bearer_uptop": []
+            "runscope_auth": [
+              "api:read"
+            ]
           }
         ]
       },
@@ -184,24 +215,33 @@
             "schema": {
               "$ref": "#/definitions/Bucket"
             }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
           {
-            "bearer_uptop": []
+            "runscope_auth": [
+              "api:read",
+              "bucket:write"
+            ]
           }
         ]
-     }
+      }
     },
-    "/buckets/{bucketKey}": {
+    "/buckets/{bucket_key}": {
       "get": {
-        "summary": "Returns the details of a single bucket resource.",
+        "summary": "Returns a single bucket resource.",
         "tags": [
           "Buckets"
         ],
         "parameters": [
           {
-            "name": "bucketKey",
+            "name": "bucket_key",
             "in": "path",
             "description": "Unique identifier for a bucket",
             "required": true,
@@ -214,11 +254,19 @@
             "schema": {
               "$ref": "#/definitions/Bucket"
             }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
           {
-            "bearer_uptop": []
+            "runscope_auth": [
+              "api:read"
+            ]
           }
         ]
       },
@@ -229,7 +277,7 @@
         ],
         "parameters": [
           {
-            "name": "bucketKey",
+            "name": "bucket_key",
             "in": "path",
             "description": "Unique identifier for a bucket",
             "required": true,
@@ -239,24 +287,33 @@
         "responses": {
           "204": {
             "description": "No content with no body."
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
           {
-            "bearer_uptop": []
+            "runscope_auth": [
+              "api:read",
+              "bucket:write"
+            ]
           }
         ]
       }
     },
-    "/buckets/{bucketKey}/messages": {
+    "/buckets/{bucket_key}/messages": {
       "get": {
         "summary": "Retrieve a list of messages in a bucket",
         "tags": [
-          "Messages"
+          "Buckets Messages"
         ],
         "parameters": [
           {
-            "name": "bucketKey",
+            "name": "bucket_key",
             "in": "path",
             "description": "Unique identifier for a bucket",
             "required": true,
@@ -265,19 +322,19 @@
           {
             "name": "count",
             "in": "query",
-            "type": "integer",
+            "type": "int",
             "description": "Maxiumum number of messages to return. Default 50, max 1000."
           },
           {
             "name": "since",
             "in": "query",
-            "type": "integer",
+            "type": "int",
             "description": "Only return messages after the given Unix timestamp"
           },
           {
             "name": "before",
             "in": "query",
-            "type": "integer",
+            "type": "int",
             "description": "Only return messages before the given Unix timestamp"
           }
         ],
@@ -287,22 +344,31 @@
             "schema": {
               "$ref": "#/definitions/Bucket"
             }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
-	  {
-            "bearer_uptop": []
-	  }
+          {
+            "runscope_auth": [
+              "api:read",
+              "messages:read"
+            ]
+          }
         ]
       },
       "delete": {
         "summary": "Clear a bucket (remove all messages).",
         "tags": [
-          "Messages"
+          "Buckets Messages"
         ],
         "parameters": [
           {
-            "name": "bucketKey",
+            "name": "bucket_key",
             "in": "path",
             "description": "Unique identifier for a bucket",
             "required": true,
@@ -315,18 +381,27 @@
             "schema": {
               "$ref": "#/definitions/Bucket"
             }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
-	  {
-            "bearer_uptop": []
-	  }
+          {
+            "runscope_auth": [
+              "api:read",
+              "messages:write"
+            ]
+          }
         ]
       },
       "post": {
         "summary": "Create a message",
         "tags": [
-          "Messages"
+          "Buckets Messages"
         ],
         "parameters": [
           {
@@ -344,24 +419,33 @@
             "schema": {
               "$ref": "#/definitions/Bucket"
             }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
-	  {
-            "bearer_uptop": []
-	  }
+          {
+            "runscope_auth": [
+              "api:read",
+              "messages:write"
+            ]
+          }
         ]
       }
     },
-    "/buckets/{bucketKey}/errors": {
+    "/buckets/{bucket_key}/errors": {
       "get": {
         "summary": "Retrieve a list of error messages in a bucket",
         "tags": [
-          "Messages"
+          "Buckets Messages"
         ],
         "parameters": [
           {
-            "name": "bucketKey",
+            "name": "bucket_key",
             "in": "path",
             "description": "Unique identifier for a bucket",
             "required": true,
@@ -370,19 +454,19 @@
           {
             "name": "count",
             "in": "query",
-            "type": "integer",
+            "type": "int",
             "description": "Maxiumum number of messages to return. Default 50, max 1000."
           },
           {
             "name": "since",
             "in": "query",
-            "type": "integer",
+            "type": "int",
             "description": "Only return messages after the given Unix timestamp"
           },
           {
             "name": "before",
             "in": "query",
-            "type": "integer",
+            "type": "int",
             "description": "Only return messages before the given Unix timestamp"
           }
         ],
@@ -392,194 +476,65 @@
             "schema": {
               "$ref": "#/definitions/Bucket"
             }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         },
         "security": [
-	  {
-            "bearer_uptop": []
-	  }
+          {
+            "runscope_auth": [
+              "api:read",
+              "messages:read"
+            ]
+          }
         ]
       }
     },
-    "/buckets/{bucketKey}/tests": {
+    "/history": {
       "get": {
-        "summary": "Returns a list of tests.",
+        "summary": "User Activity",
+        "description": "The User Activity endpoint returns data about a user's lifetime activity with Uber. The response will include pickup locations and times, dropoff locations and times, the distance of past requests, and information about which products were requested.<br><br>The history array in the response will have a maximum length based on the limit parameter. The response value count may exceed limit, therefore subsequent API requests may be necessary.",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "type": "integer",
+            "format": "int32",
+            "description": "Offset the list of returned results by this amount. Default is zero."
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "integer",
+            "format": "int32",
+            "description": "Number of items to retrieve. Default is 5, maximum is 100."
+          }
+        ],
         "tags": [
-          "Tests"
+          "User"
         ],
         "responses": {
           "200": {
-            "description": "List of tests for this bucket",
+            "description": "History information for the given user",
             "schema": {
-              "properties": {
-                "data": {
-                  "type": "array",
-                  "items": { 
-                    "$ref": "#/definitions/Test"
-                  }
-                },
-                "meta": {
-                  "$ref": "#/definitions/Meta"
-                }
-              }
+              "$ref": "#/definitions/Activities"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
             }
           }
-        },
-        "security": [
-	  {
-            "bearer_uptop": []
-	  }
-        ]
-      },
-      "post": {
-        "summary": "Create a test.",
-        "tags": [
-          "Tests"
-        ],
-        "parameters": [
-          {
-            "name": "NewTest",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/NewTest"
-            }
-          }
-	],
-        "responses": {
-          "200": {
-            "description": "List of tests for this bucket",
-            "schema": {
-              "properties": {
-                "data": {
-                  "type": "array",
-                  "items": { 
-                    "$ref": "#/definitions/Test"
-                  }
-                },
-                "meta": {
-                  "$ref": "#/definitions/Meta"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-	  {
-            "bearer_uptop": []
-	  }
-        ]
+        }
       }
-    },
-    "/buckets/{bucketKey}/tests/{test_uuid}": {
-      "delete": {
-        "summary": "Delete a single test.",
-        "tags": [
-          "Tests"
-        ],
-        "parameters": [
-          {
-            "name": "test_uuid",
-            "in": "path",
-            "type": "string",
-            "required": true,
-            "description": "Unique identifier for a test"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No content with no body."
-          }
-        },
-        "security": [
-	  {
-            "bearer_uptop": []
-	  }
-        ]
-      }
-   }
+    }
   },
   "definitions": {
-    "Test": {
-      "properties": {
-        "uuid": {
-          "type": "string",
-          "description": "The unique identifier for the test."
-        },
-        "name": {
-          "type": "string",
-          "description": "The name of the test."
-        },
-        "description": {
-          "type": "string",
-          "description": "Long-form description of the test."
-        },
-        "default_environment_uuid": {
-          "type": "string",
-          "description": "The default environment for the test."
-        },
-        "steps": {
-          "type": "array",
-          "items": {
-            "$ref": "/#definitions/Step"
-          }
-
-        }
-
-       } 
-    },
-    "Step": {
-      "properties": {
-        "assertions": {
-          "type": "array",
-          "items": {
-            "$ref": "/#definitions/Assertion"
-          }
-        },
-        "method": {
-          "type": "string"
-        },
-        "step_type": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string"
-        },
-        "note": {
-          "type": "string"
-        },
-        "auth": {
-          "$ref": "#/definitions/Auth"
-        },
-        "form": {
-           "type": "object",
-           "description": "JSON object of set of form fields included in a POST request. \nValues can either be represented as a string or as an array of strings."
-        }
-      }
-    },
-    "Auth": {
-      "type": "object"
-    },
-    "Assertion": {
-      "properties": {
-        "source": {
-          "type": "string",
-          "description": "Left side of assertion expression"
-        },
-        "property": {
-          "type": "string",
-          "description": "Property details for source"
-        },
-        "comparison": {
-          "type": "string",
-          "description": "Assertion operator"
-        },
-        "value": {
-          "type": "string",
-          "description": "Right side of assertion expression"
-        }
-      }
-    },
     "Meta": {
       "properties": {
         "status": {
@@ -649,23 +604,6 @@
         }
       }
     },
-
-    "NewTest": {
-       "properties": {
-         "name": {
-           "type": "string",
-	   "description": "Name of this test."
-	 },
-	 "description": {
-           "type": "string",
-	   "description": "Human-readable description of the new test."
-	 }
-       },
-       "required": [
-          "name"
-       ]
-   },
-
     "NewMessage": {
       "properties": {
         "request": {
@@ -673,11 +611,13 @@
           "properties": {
             "method": {
               "type": "string",
-              "description": "HTTP method name (GET, POST, PUT, HEAD, OPTIONS, PATCH, DELETE, etc.)"
+              "description": "HTTP method name (GET, POST, PUT, HEAD, OPTIONS, PATCH, DELETE, etc.)",
+              "required": true
             },
             "url": {
               "type": "string",
-              "description": "Full URL of the request, including URL querystring parameters."
+              "description": "Full URL of the request, including URL querystring parameters.",
+              "required": true
             },
             "headers": {
               "type": "string",
@@ -696,7 +636,7 @@
               "description": "If the request body was encoded with Base64, this field should be present and set to \n\"base64\". If not specified, defaults to \"plaintext\"\n"
             },
             "timestamp": {
-              "type": "number",
+              "type": "float",
               "description": "Unix timestamp indicating when the request was made."
             }
           }
@@ -706,7 +646,8 @@
           "properties": {
             "status": {
               "type": "integer",
-              "description": "HTTP status code returned in the response."
+              "description": "HTTP status code returned in the response.",
+              "required": true
             },
             "reason": {
               "type": "string",
@@ -724,12 +665,12 @@
               "type": "string",
               "description": "If the request body was encoded with Base64, this field should be present and set to \n\"base64\". If not specified, defaults to \"plaintext\"\n"
             },
-            "response_time": {
-              "type": "number",
+            "resopnse_time": {
+              "type": "float",
               "description": "Length of time it took to receive the response, in seconds."
             },
             "timestamp": {
-              "type": "number",
+              "type": "float",
               "description": "Unix timestamp indicating when the request was made."
             }
           }

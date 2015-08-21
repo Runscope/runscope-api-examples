@@ -18,10 +18,10 @@ def get_bucket_list():
 def get_bucket_test_list( bucket_key ):
     return _api_get_request( '/buckets/%s/tests' % bucket_key, 200 )
 
-# Retrieves test details for a given test uuid in a bucket
+# Retrieves test details for a given test id in a bucket
 # https://www.runscope.com/docs/api/tests#detail
-def get_test_details( bucket_key,test_uuid ):
-    return _api_get_request( '/buckets/%s/tests/%s' % (bucket_key,test_uuid), 200 )
+def get_test_details( bucket_key,test_id ):
+    return _api_get_request( '/buckets/%s/tests/%s' % (bucket_key,test_id), 200 )
 
 # Execute HTTP request
 def _api_get_request( path, status ):
@@ -69,12 +69,12 @@ def main():
 
 	    # Loop through tests in bucket
 	    for test in bucket_test_list:
-		test_uuid = test["uuid"]
+		test_id = test["id"]
 		test_name = test["name"]
 
                 # Fetch details for this test and write to file
-		test_json = get_test_details( b['key'], test_uuid )
-		test_file = open('%s/%s.json' % (b['path'],test_uuid),'w')
+		test_json = get_test_details( b['key'], test_id )
+		test_file = open('%s/%s.json' % (b['path'],test_id),'w')
 		test_file.truncate()
 		test_file.write(json.dumps(test_json))
 		test_file.close()

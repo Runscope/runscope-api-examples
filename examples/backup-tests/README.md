@@ -28,7 +28,7 @@ To create an access token, login to your Runscope account and navigate to [https
 Running the App
 ------------
 $ python backup.py
-$ python 
+$ python GenerateCurlScript.py
 
 ChangeLog
 ------------

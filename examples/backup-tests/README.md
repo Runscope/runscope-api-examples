@@ -1,9 +1,13 @@
-Runscope Test Backup
+Runscope Test Backup - as is backup and generate curl script 
 ============
 Sample app that uses the Runscope API to back up your
 Runscope tests. The app will create new folders for
 each bucket and dump the contents of every test into
 a JSON file.
+
+GenerateCurlScript - 
+
+This script generates testcases in text files one for each test case.  The file name is test case name with 1 curl command per test step 
 
 Requirements
 ------------
@@ -24,6 +28,7 @@ To create an access token, login to your Runscope account and navigate to [https
 Running the App
 ------------
 $ python backup.py
+$ python 
 
 ChangeLog
 ------------

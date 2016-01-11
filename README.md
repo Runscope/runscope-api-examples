@@ -18,7 +18,10 @@ By default, this access token has full OAuth scopes -- including all
 read/write operations. Keep this access token 
 confidential!
 
+For step-by-step walkthrough on how to get started quickly with the Runscope API, see this [quickstart guide](http://blog.runscope.com/posts/getting-started-with-the-runscope-api).
+
 Resources
 ------------
+[Quickstart Guide to the Runscope API](http://blog.runscope.com/posts/getting-started-with-the-runscope-api)
 [Runscope API Docs](https://www.runscope.com/docs/api)
 

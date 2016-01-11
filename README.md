@@ -23,5 +23,6 @@ For step-by-step walkthrough on how to get started quickly with the Runscope API
 Resources
 ------------
 [Quickstart Guide to the Runscope API](http://blog.runscope.com/posts/getting-started-with-the-runscope-api)
+
 [Runscope API Docs](https://www.runscope.com/docs/api)
 

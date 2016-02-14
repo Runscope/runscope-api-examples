@@ -70,7 +70,7 @@ def main():
 
     # Loop through bucket list
     for bucket in bucket_list:
-        file_name = ("%s_%s" % (today, bucket['key'])).replace(':', '___')
+        file_name = ("%s___%s" % (today, bucket['key'])).replace(':', '-')
         b = {
             'name': bucket['name'],
             'key': bucket['key'],
@@ -91,7 +91,7 @@ def main():
 
                 # Fetch details for this test and write to file
                 test_json = get_test_details(b['key'], test_id)
-                test_file = open('%s/%s.json' % (b['path'], test_id), 'w')
+                test_file = open(os.path.join(b['path'], '%s.json' % test_id), 'w')
                 test_file.truncate()
                 test_file.write(json.dumps(test_json))
                 test_file.close()

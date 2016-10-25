@@ -229,7 +229,7 @@ def main():
         b['key'] = bucket['key']
         b['path'] = "%s/%s_%s" % (workdir, today, b['key'])
         # Below condition is to test with smaller bucket of test cases
-        if b['key'] != ' ':
+        if b['key'] == '80e4gnwm9xxi':
             # Fetch list of tests in this bucket
             print "----" + bucket['name'] + "----"
             bucket_test_list = get_bucket_test_list(b['key'])
@@ -286,19 +286,21 @@ def main():
                             textBuffer += ""
                             for key, value in testStep['headers'].iteritems():
                                 textBuffer += key + ":" + replaceVariables(config["runscope"], value[0]) + "\n"
+
                         Request.headers = textBuffer
 
                         formdata = ""
                         if 'form' in testStep:
                             dataForm = []
                             for key1, value1 in testStep['form'].iteritems():
-                                dataForm.append({"key": key1,
-                                                 "value": value1,
+                                dataForm.append({"key": replaceVariables(config["runscope"], key1),
+                                                 "value": replaceVariables(config["runscope"], str(value1)),
                                                  "type": "text",
                                                  "enabled": True})
+                            Request.datamode = "params"
                             Request.data = dataForm
 
-                        if 'body' in testStep:
+                        if 'body' in testStep and testStep['body'] != "":
                             formdata = testStep['body']
                             # replaceVariables(config["runscope"],testStep['body'])
                             textBuffer = replaceVariables(config["runscope"], formdata)

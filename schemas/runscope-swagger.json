@@ -1063,7 +1063,7 @@
                 "teams": {
                     "type": "array",
                     "items": {
-                        "$ref": "/#definitions/Team"
+                        "$ref": "#/definitions/Team"
                     }
                 }
             }

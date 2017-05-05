@@ -55,10 +55,7 @@
             }
           },
           "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+            "$ref": "#/responses/UnexpectedError"
           }
         },
         "security": [{
@@ -90,10 +87,7 @@
             }
           },
           "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+            "$ref": "#/responses/UnexpectedError"
           }
         },
         "security": [{
@@ -126,10 +120,7 @@
             }
           },
           "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+            "$ref": "#/responses/UnexpectedError"
           }
         },
         "security": [{
@@ -162,10 +153,7 @@
             }
           },
           "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+            "$ref": "#/responses/UnexpectedError"
           }
         },
         "security": [{
@@ -195,10 +183,7 @@
             }
           },
           "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+            "$ref": "#/responses/UnexpectedError"
           }
         },
         "security": [{
@@ -226,10 +211,7 @@
             }
           },
           "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+            "$ref": "#/responses/UnexpectedError"
           }
         },
         "security": [{
@@ -251,10 +233,7 @@
             "description": "No content with no body."
           },
           "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+            "$ref": "#/responses/UnexpectedError"
           }
         },
         "security": [{
@@ -301,10 +280,7 @@
             }
           },
           "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+            "$ref": "#/responses/UnexpectedError"
           }
         },
         "security": [{
@@ -329,10 +305,7 @@
             }
           },
           "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+            "$ref": "#/responses/UnexpectedError"
           }
         },
         "security": [{
@@ -365,10 +338,7 @@
             }
           },
           "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+            "$ref": "#/responses/UnexpectedError"
           }
         },
         "security": [{
@@ -415,10 +385,7 @@
             }
           },
           "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+            "$ref": "#/responses/UnexpectedError"
           }
         },
         "security": [{
@@ -453,10 +420,7 @@
             }
           },
           "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+            "$ref": "#/responses/UnexpectedError"
           }
         },
         "security": [{
@@ -1134,6 +1098,14 @@
       "type": "string",
       "required": true,
       "description": "Unique identifier for a test environment"
+    }
+  },
+  "responses": {
+    "UnexpectedError": {
+      "description": "Unexpected error",
+      "schema": {
+        "$ref": "#/definitions/Error"
+      }
     }
   }
 }

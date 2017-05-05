@@ -74,11 +74,7 @@
         "summary": "Teams Resource",
         "description": "List people and integrations associated with a given team.",
         "parameters": [{
-          "name": "teamId",
-          "in": "path",
-          "description": "Unique identifier for team",
-          "required": true,
-          "type": "string"
+          "$ref": "#/parameters/teamId"
         }],
         "tags": [
           "Account"
@@ -114,11 +110,7 @@
         "summary": "Team integrations list",
         "description": "Returns a list of integrations configured for the team.",
         "parameters": [{
-          "name": "teamId",
-          "in": "path",
-          "description": "Unique identifier for team",
-          "required": true,
-          "type": "string"
+          "$ref": "#/parameters/teamId"
         }],
         "tags": [
           "Account"
@@ -224,11 +216,7 @@
           "Buckets"
         ],
         "parameters": [{
-          "name": "bucketKey",
-          "in": "path",
-          "description": "Unique identifier for a bucket",
-          "required": true,
-          "type": "string"
+          "$ref": "#/parameters/bucketKey"
         }],
         "responses": {
           "200": {
@@ -256,11 +244,7 @@
           "Buckets"
         ],
         "parameters": [{
-          "name": "bucketKey",
-          "in": "path",
-          "description": "Unique identifier for a bucket",
-          "required": true,
-          "type": "string"
+          "$ref": "#/parameters/bucketKey"
         }],
         "responses": {
           "204": {
@@ -288,11 +272,7 @@
           "Messages"
         ],
         "parameters": [{
-            "name": "bucketKey",
-            "in": "path",
-            "description": "Unique identifier for a bucket",
-            "required": true,
-            "type": "string"
+            "$ref": "#/parameters/bucketKey"
           },
           {
             "name": "count",
@@ -339,11 +319,7 @@
           "Messages"
         ],
         "parameters": [{
-          "name": "bucketKey",
-          "in": "path",
-          "description": "Unique identifier for a bucket",
-          "required": true,
-          "type": "string"
+          "$ref": "#/parameters/bucketKey"
         }],
         "responses": {
           "204": {
@@ -372,11 +348,7 @@
           "Messages"
         ],
         "parameters": [{
-          "name": "bucketKey",
-          "in": "path",
-          "description": "Unique identifier for a bucket",
-          "required": true,
-          "type": "string"
+          "$ref": "#/parameters/bucketKey"
           }, {
           "name": "NewMessage",
           "in": "body",
@@ -414,11 +386,7 @@
           "Messages"
         ],
         "parameters": [{
-            "name": "bucketKey",
-            "in": "path",
-            "description": "Unique identifier for a bucket",
-            "required": true,
-            "type": "string"
+            "$ref": "#/parameters/bucketKey"
           },
           {
             "name": "count",
@@ -467,11 +435,7 @@
           "Messages"
         ],
         "parameters": [{
-            "name": "bucketKey",
-            "in": "path",
-            "description": "Unique identifier for a bucket",
-            "required": true,
-            "type": "string"
+            "$ref": "#/parameters/bucketKey"
           },
           {
             "name": "messageId",
@@ -510,11 +474,7 @@
           "Tests"
         ],
         "parameters": [{
-          "name": "bucketKey",
-          "in": "path",
-          "description": "Unique identifier for a bucket",
-          "required": true,
-          "type": "string"
+          "$ref": "#/parameters/bucketKey"
         }],
         "responses": {
           "200": {
@@ -547,11 +507,7 @@
           "Tests"
         ],
         "parameters": [{
-          "name": "bucketKey",
-          "in": "path",
-          "description": "Unique identifier for a bucket",
-          "required": true,
-          "type": "string"
+          "$ref": "#/parameters/bucketKey"
           }, {
           "name": "NewTest",
           "in": "body",
@@ -593,17 +549,9 @@
           "Tests"
         ],
         "parameters": [{
-          "name": "bucketKey",
-          "in": "path",
-          "description": "Unique identifier for a bucket",
-          "required": true,
-          "type": "string"
+            "$ref": "#/parameters/bucketKey"
           }, {
-          "name": "testId",
-          "in": "path",
-          "type": "string",
-          "required": true,
-          "description": "Unique identifier for a test"
+            "$ref": "#/parameters/testId"
         }],
         "responses": {
           "204": {
@@ -625,17 +573,9 @@
           "Test Steps"
         ],
         "parameters": [{
-          "name": "bucketKey",
-          "in": "path",
-          "description": "Unique identifier for a bucket",
-          "required": true,
-          "type": "string"
+          "$ref": "#/parameters/bucketKey"
           }, {
-          "name": "testId",
-          "in": "path",
-          "type": "string",
-          "required": true,
-          "description": "Unique identifier for a test"
+          "$ref": "#/parameters/testId"
         }],
         "responses": {
           "200": {
@@ -655,17 +595,9 @@
           "Test Steps"
         ],
         "parameters": [{
-            "name": "bucketKey",
-            "in": "path",
-            "description": "Unique identifier for a bucket",
-            "required": true,
-            "type": "string"
+            "$ref": "#/parameters/bucketKey"
           }, {
-            "name": "testId",
-            "in": "path",
-            "type": "string",
-            "required": true,
-            "description": "Unique identifier for a test"
+            "$ref": "#/parameters/testId"
           },
           {
             "name": "NewStep",
@@ -696,23 +628,11 @@
           "Test Steps"
         ],
         "parameters": [{
-            "name": "bucketKey",
-            "in": "path",
-            "description": "Unique identifier for a bucket",
-            "required": true,
-            "type": "string"
+            "$ref": "#/parameters/bucketKey"
           }, {
-            "name": "testId",
-            "in": "path",
-            "type": "string",
-            "required": true,
-            "description": "Unique identifier for a test"
+            "$ref": "#/parameters/testId"
           }, {
-            "name": "stepId",
-            "in": "path",
-            "type": "string",
-            "required": true,
-            "description": "Unique identifier for a test step"
+            "$ref": "#/parameters/stepId"
           }, {
             "name": "NewStep",
             "in": "body",
@@ -741,24 +661,12 @@
           "Test Steps"
         ],
         "parameters": [{
-            "name": "bucketKey",
-            "in": "path",
-            "description": "Unique identifier for a bucket",
-            "required": true,
-            "type": "string"
+            "$ref": "#/parameters/bucketKey"
           }, {
-            "name": "testId",
-            "in": "path",
-            "type": "string",
-            "required": true,
-            "description": "Unique identifier for a test"
+            "$ref": "#/parameters/testId"
           },
           {
-            "name": "stepId",
-            "in": "path",
-            "type": "string",
-            "required": true,
-            "description": "Unique identifier for a step"
+            "$ref": "#/parameters/stepId"
           }
 
         ],
@@ -783,16 +691,9 @@
           "Test Environments"
         ],
         "parameters": [{
-            "name": "bucketKey",
-            "in": "path",
-            "type": "string",
-            "required": true
+            "$ref": "#/parameters/bucketKey"
           }, {
-            "name": "testId",
-            "in": "path",
-            "type": "string",
-            "required": true,
-            "description": "Unique identifier for a test"
+            "$ref": "#/parameters/testId"
           }
         ],
         "responses": {
@@ -813,18 +714,10 @@
           "Test Environments"
         ],
         "parameters": [{
-            "name": "bucketKey",
-            "in": "path",
-            "type": "string",
-            "required": true
+            "$ref": "#/parameters/bucketKey"
           },
-
           {
-            "name": "testId",
-            "in": "path",
-            "type": "string",
-            "required": true,
-            "description": "Unique identifier for a test"
+            "$ref": "#/parameters/testId"
           },
           {
             "name": "NewEnvironment",
@@ -856,25 +749,13 @@
           "Test Environments"
         ],
         "parameters": [{
-            "name": "bucketKey",
-            "in": "path",
-            "type": "string",
-            "required": true
-          },
-
-          {
-            "name": "testId",
-            "in": "path",
-            "type": "string",
-            "required": true,
-            "description": "Unique identifier for a test"
+            "$ref": "#/parameters/bucketKey"
           },
           {
-            "name": "environmentId",
-            "in": "path",
-            "type": "string",
-            "required": true,
-            "description": "Unique identifier for a test environment"
+            "$ref": "#/parameters/testId"
+          },
+          {
+            "$ref": "#/parameters/environmentId"
           },
           {
             "name": "ModifiedEnvironment",
@@ -906,10 +787,7 @@
           "Shared Environments"
         ],
         "parameters": [{
-          "name": "bucketKey",
-          "in": "path",
-          "type": "string",
-          "required": true
+          "$ref": "#/parameters/bucketKey"
         }],
         "responses": {
           "200": {
@@ -929,10 +807,7 @@
           "Shared Environments"
         ],
         "parameters": [{
-            "name": "bucketKey",
-            "in": "path",
-            "type": "string",
-            "required": true
+            "$ref": "#/parameters/bucketKey"
           },
           {
             "name": "NewEnvironment",
@@ -964,17 +839,10 @@
           "Shared Environments"
         ],
         "parameters": [{
-            "name": "bucketKey",
-            "in": "path",
-            "type": "string",
-            "required": true
+            "$ref": "#/parameters/bucketKey"
           },
           {
-            "name": "environmentId",
-            "in": "path",
-            "type": "string",
-            "required": true,
-            "description": "Unique identifier for a shared environment"
+            "$ref": "#/parameters/environmentId"
           },
           {
             "name": "ModifiedEnvironment",
@@ -1229,6 +1097,43 @@
           "description": "The description for the test."
         }
       }
+    }
+  },
+  "parameters": {
+    "teamId": {
+      "name": "teamId",
+      "in": "path",
+      "description": "Unique identifier for team",
+      "required": true,
+      "type": "string"
+    },
+    "bucketKey": {
+      "name": "bucketKey",
+      "in": "path",
+      "description": "Unique identifier for a bucket",
+      "required": true,
+      "type": "string"
+    },
+    "testId": {
+      "name": "testId",
+      "in": "path",
+      "type": "string",
+      "required": true,
+      "description": "Unique identifier for a test"
+    },
+    "stepId": {
+      "name": "stepId",
+      "in": "path",
+      "type": "string",
+      "required": true,
+      "description": "Unique identifier for a test step"
+    },
+    "environmentId": {
+      "name": "environmentId",
+      "in": "path",
+      "type": "string",
+      "required": true,
+      "description": "Unique identifier for a test environment"
     }
   }
 }

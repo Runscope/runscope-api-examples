@@ -131,6 +131,38 @@
         }]
       }
     },
+    "/teams/{teamId}/agents": {
+      "get": {
+        "summary": "Team agents list",
+        "description": "List currently connected agents associated with a given team.",
+        "parameters": [{
+          "$ref": "#/parameters/teamId"
+        }],
+        "tags": [
+          "Account"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of the team’s currently connected agents.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Agent"
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/responses/UnexpectedError"
+          }
+        },
+        "security": [{
+          "runscope_auth": [
+            "api:read",
+            "team:read"
+          ]
+        }]
+      }
+    },
     "/buckets": {
       "get": {
         "summary": "Returns a list of buckets.",
@@ -1059,6 +1091,22 @@
         "description": {
           "type": "string",
           "description": "The description for the test."
+        }
+      }
+    },
+    "Agent": {
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "The version for this agent."
+        },
+        "agent_id": {
+          "type": "string",
+          "description": "The unique identifier for this agent."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the agent set in the configuration file or with the command line flag."
         }
       }
     }

@@ -605,11 +605,11 @@
             "$ref": "#/parameters/testId"
           },
           {
-            "name": "NewStep",
+            "name": "TestStep",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/NewStep"
+              "$ref": "#/definitions/TestStep"
             }
           }
         ],
@@ -639,11 +639,11 @@
           }, {
             "$ref": "#/parameters/stepId"
           }, {
-            "name": "NewStep",
+            "name": "TestStep",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/NewStep"
+              "$ref": "#/definitions/TestStep"
             }
           }
         ],
@@ -958,9 +958,33 @@
         "team": {
           "$ref": "#/definitions/Team"
         },
+        "trigger_url": {
+          "type": "string"
+        },
         "verify_ssl": {
           "description": "True if this bucket is configured to verify ssl for requests made to it.",
           "type": "boolean"
+        },
+        "tests_url": {
+          "type": "string"
+        },
+        "collections_url": {
+          "type": "string"
+        },
+        "messages_url": {
+          "type": "string"
+        }
+      }
+    },
+    "NewBucket": {
+      "properties": {
+        "name": {
+          "description": "Name of this bucket",
+          "type": "string"
+        },
+        "teamId": {
+          "description": "Unique identifier for the team to create this bucket for.",
+          "type": "string"
         }
       }
     },
@@ -1037,23 +1061,62 @@
         }
       }
     },
-    "NewBucket": {
-      "properties": {
-        "name": {
-          "description": "Name of this bucket",
-          "type": "string"
-        },
-        "teamId": {
-          "description": "Unique identifier for the team this to create this bucket for.",
-          "type": "string"
-        }
-      }
-    },
-    "NewStep": {
+    "TestStep": {
       "properties": {
         "step_type": {
           "type": "string",
-          "description": "Type of test step -- request, pause, condition or ghost-inspector."
+          "description": "Type of test step -- request, pause, condition, ghost-inspector, or subtest."
+        }
+      }
+    },
+    "TestStepRequest": {
+      "properties": {
+        "step_type": {
+          "$ref": "#/definitions/TestStep"
+        },
+        "url": {
+          "type": "string",
+          "description": "The URL to make a request to for this step. This may contain both query string parameters and variables."
+        },
+        "method": {
+          "type": "string",
+          "description": "The HTTP method for this request step. E.g. GET, POST, PUT, DELETE, etc."
+        },
+        "note": {
+          "type": "string",
+          "description": "A description or note for this request step."
+        },
+        "auth": {
+          "type": "object",
+          "description": "An authentication object with either basic, oauth1, or client_certificate credentials for authenticating this request."
+        },
+        "headers": {
+          "type": "object",
+          "description": "An object with keys as header names matched to their values. Values can either be a single string or an array of strings."
+        },
+        "form": {
+          "type": "object",
+          "description": "An object with keys as form post parameter names matched to their values. Values can either be a single string or an array of strings."
+        },
+        "body": {
+          "type": "string",
+          "description": "A string to use as the body of the request."
+        },
+        "assertions": {
+          "type": "array",
+          "description": "A list of assertions to apply to the HTTP response from this request."
+        },
+        "variables": {
+          "type": "array",
+          "description": "A list of variables to extract out of the HTTP response from this request."
+        },
+        "scripts": {
+          "type": "array",
+          "description": "A list of post-response scripts to run after this request."
+        },
+        "before_scripts": {
+          "type": "array",
+          "description": "A list of pre-request scripts to run before this request."
         }
       }
     },
@@ -1065,16 +1128,89 @@
         }
       }
     },
-    "Error": {
+    "Environment": {
       "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
+        "integrations": {
+          "type": "array",
+          "description": "The list of integrations for this environment.",
+          "items": {
+            "$ref": "#/definitions/Integration"
+          }
         },
-        "message": {
+        "verify_ssl": {
+          "type": "boolean",
+          "description": "Validate all SSL certificates on any HTTPS connections."
+        },
+        "script_library": {
+          "type": "array",
+          "description": "The list of ids for scripts, part of the script libraries, being used for this environment.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for this environment."
+        },
+        "script": {
+          "type": "string",
+          "description": ""
+        },
+        "regions": {
+          "type": "array",
+          "description": "An array of the region codes that this environment is using."
+        },
+        "version": {
           "type": "string"
         },
-        "fields": {
+        "stop_on_failure": {
+          "type": "boolean",
+          "description": "Stop executing the test after the first failed step."
+        },
+        "initial_script_hash": {
+          "type": "string"
+        },
+        "auth": {
+          "type": "string"
+        },
+        "exported_at": {
+          "type": "integer"
+        },
+        "retry_on_failure": {
+          "type": "boolean"
+        },
+        "remote_agents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Agent"
+          }
+        },
+        "webhooks": {
+          "type": "string"
+        },
+        "test_id": {
+          "type": "string",
+          "description": "The unique identifier for this test."
+        },
+        "emails": {
+          "type": "object",
+        },
+        "name": {
+          "type": "string"
+        },
+        "initial_variables": {
+          "type": "object"
+        },
+        "headers": {
+          "type": "object"
+        },
+        "parent_environment_id": {
+          "type": "string"
+        },
+        "preserve_cookies": {
+          "type": "boolean"
+        },
+        "client_certificate": {
           "type": "string"
         }
       }
@@ -1201,6 +1337,37 @@
         "timeframe": {
           "type": "string",
           "description": "The timeframe that filters this request."
+        }
+      }
+    },
+    "Error": {
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "string"
+        }
+      }
+    },
+    "Error400": {
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "more_info": {
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
         }
       }
     }

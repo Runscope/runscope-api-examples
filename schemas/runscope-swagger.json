@@ -111,11 +111,18 @@
         ],
         "responses": {
           "200": {
-            "description": "List of people associated with the team.",
+            "description": "List of integrations associated with the team.",
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Account"
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Integration"
+                  }
+                },
+                "meta": {
+                  "$ref": "#/definitions/Meta"
+                }
               }
             }
           },
@@ -1084,6 +1091,22 @@
         "description": {
           "type": "string",
           "description": "The description for the test."
+        }
+      }
+    },
+    "Integration": {
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
         }
       }
     },

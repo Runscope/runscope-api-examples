@@ -462,7 +462,6 @@
         }]
       }
     },
-
     "/buckets/{bucketKey}/tests": {
       "get": {
         "summary": "Returns a list of tests.",
@@ -650,7 +649,6 @@
           ]
         }]
       },
-
       "delete": {
         "summary": "Delete a step from a test.",
         "tags": [
@@ -664,7 +662,6 @@
           {
             "$ref": "#/parameters/stepId"
           }
-
         ],
         "responses": {
           "204": {
@@ -678,7 +675,6 @@
           ]
         }]
       }
-
     },
     "/buckets/{bucketKey}/tests/{testId}/environments": {
       "get": {
@@ -737,7 +733,6 @@
         }]
       }
     },
-
     "/buckets/{bucketKey}/tests/{testId}/environments/{environmentId}": {
       "put": {
         "summary": "Update the details of a test environment.",
@@ -774,7 +769,6 @@
           ]
         }]
       }
-
     },
     "/buckets/{bucketKey}/environments": {
       "get": {
@@ -827,7 +821,6 @@
         }]
       }
     },
-
     "/buckets/{bucketKey}/environments/{environmentId}": {
       "put": {
         "summary": "Update the details of a test environment.",

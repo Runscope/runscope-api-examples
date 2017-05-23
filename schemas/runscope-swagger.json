@@ -700,7 +700,20 @@
         ],
         "responses": {
           "200": {
-            "description": "List of environments belonging to this test."
+            "description": "List of environments belonging to this test.",
+            "schema": {
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Environment"
+                  }
+                },
+                "meta": {
+                  "$ref": "#/definitions/Meta"
+                }
+              }
+            }
           }
         },
         "security": [{

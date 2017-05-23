@@ -620,7 +620,7 @@
           "400": {
             "description": "Must send valid JSON object to create a new test step",
             "schema": {
-              "$ref": "#/responses/Standard400Response"
+              "$ref": "#/definitions/StandardError"
             }
           }
         },
@@ -660,7 +660,7 @@
           "400": {
             "description": "Unable to update template '{stepId}' for test '{testId}'",
             "schema": {
-              "$ref": "#/responses/Standard400Response"
+              "$ref": "#/definitions/StandardError"
             }
           }
         },
@@ -1395,6 +1395,19 @@
           "type": "string"
         }
       }
+    },
+    "StandardError": {
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/Meta"
+        },
+        "data": {
+          "type": "object"
+        },
+        "error": {
+          "$ref": "#/definitions/Error400"
+        }
+      }
     }
   },
   "parameters": {
@@ -1436,25 +1449,15 @@
   },
   "responses": {
     "Standard400Response": {
+      "description": "Invalid request.",
       "schema": {
-        "type": "object",
-        "properties": {
-          "meta": {
-            "$ref": "#/definitions/Meta"
-          },
-          "data": {
-            "type": "object"
-          },
-          "error": {
-            "$ref": "#/definitions/Error400"
-          }
-        }
+        "$ref": "#/definitions/StandardError"
       }
     },
     "Standard403Response": {
       "description": "Invalid or missing Authorization header",
       "schema": {
-        "$ref": "#/definitions/Standard400Response"
+        "$ref": "#/definitions/StandardError"
       }
     },
     "UnexpectedError": {

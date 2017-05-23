@@ -183,7 +183,10 @@
               "type": "object",
               "properties": {
                 "data": {
-                  "$ref": "#/definitions/Account"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Bucket"
+                  }
                 },
                 "meta": {
                   "$ref": "#/definitions/Meta"

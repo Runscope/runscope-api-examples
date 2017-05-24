@@ -1058,12 +1058,16 @@
       }
     },
     "NewBucket": {
+      "required": [
+        "name",
+        "team_id"
+      ],
       "properties": {
         "name": {
           "description": "Name of this bucket",
           "type": "string"
         },
-        "teamId": {
+        "team_id": {
           "description": "Unique identifier for the team to create this bucket for.",
           "type": "string"
         }

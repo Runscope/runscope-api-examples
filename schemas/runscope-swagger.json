@@ -518,7 +518,7 @@
           "in": "body",
           "required": true,
           "schema": {
-            "$ref": "#/definitions/NewTest"
+            "$ref": "#/definitions/Test"
           }
         }],
         "responses": {
@@ -548,8 +548,64 @@
       }
     },
     "/buckets/{bucketKey}/tests/{testId}": {
+      "get": {
+        "summary": "Retrieve the details of a given test by ID.",
+        "tags": [
+          "Tests"
+        ],
+        "parameters": [{
+            "$ref": "#/parameters/bucketKey"
+          }, {
+            "$ref": "#/parameters/testId"
+        }],
+        "responses": {
+          "200": {
+            "description": "Returns an object with the details of the given test.",
+            "schema": {
+              "$ref": "#/definitions/TestDetail"
+            }
+          },
+          "default": {
+            "$ref": "#/responses/UnexpectedError"
+          }
+        },
+        "security": [{
+          "runscope_auth": [
+            "api:read",
+            "test:read"
+          ]
+        }]
+      },
+      "put": {
+        "summary": "Modify a test's name, description, default environment and its steps. To modify other individual properties of a test, make requests to the steps, environments, and schedules subresources of the test.",
+        "tags": [
+          "Tests"
+        ],
+        "parameters": [{
+            "$ref": "#/parameters/bucketKey"
+          }, {
+            "$ref": "#/parameters/testId"
+        }],
+        "responses": {
+          "201": {
+            "description": "Returns 201 and the updated test's JSON description if the test is successfully updated.",
+            "schema": {
+              "$ref": "#/definitions/TestDetail"
+            }
+          },
+          "default": {
+            "$ref": "#/responses/UnexpectedError"
+          }
+        },
+        "security": [{
+          "runscope_auth": [
+            "api:read",
+            "test:write"
+          ]
+        }]
+      },
       "delete": {
-        "summary": "Delete a single test.",
+        "summary": "Delete a test, including all steps, schedules, test-specific environments and results.",
         "tags": [
           "Tests"
         ],
@@ -1241,6 +1297,9 @@
       }
     },
     "Test": {
+      "required": [
+        "name"
+      ],
       "properties": {
         "created_at": {
           "type": "integer",
@@ -1274,17 +1333,34 @@
         }
       }
     },
-    "NewTest": {
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "The name for the test."
+    "TestDetail": {
+      "allOf": [
+        {
+          "properties": {
+            "version": {
+              "type": "string"
+            },
+            "exported_at": {
+              "type": "integer"
+            },
+            "environments": {
+              "$ref": "#/definitions/Environment"
+            },
+            "schedules": {
+              "type": "array"
+            },
+            "steps": {
+              "type": "array"
+            },
+            "last_run": {
+              "type": "object"
+            }
+          }
         },
-        "description": {
-          "type": "string",
-          "description": "The description for the test."
+        {
+          "$ref": "#/definitions/Test",
         }
-      }
+      ]
     },
     "Integration": {
       "properties": {

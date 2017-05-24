@@ -807,7 +807,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/NewEnvironment"
+              "$ref": "#/definitions/Environment"
             }
           }
         ],
@@ -844,7 +844,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/NewEnvironment"
+              "$ref": "#/definitions/Environment"
             }
           }
         ],
@@ -923,7 +923,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/NewEnvironment"
+              "$ref": "#/definitions/Environment"
             }
           }
         ],
@@ -942,7 +942,7 @@
     },
     "/buckets/{bucketKey}/environments/{environmentId}": {
       "put": {
-        "summary": "Update the details of a test environment.",
+        "summary": "Update the details of a shared environment.",
         "tags": [
           "Shared Environments"
         ],
@@ -957,7 +957,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/NewEnvironment"
+              "$ref": "#/definitions/Environment"
             }
           }
         ],
@@ -1155,65 +1155,64 @@
       }
     },
     "TestStepRequest": {
-      "properties": {
-        "step_type": {
+      "allOf": [
+        {
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL to make a request to for this step. This may contain both query string parameters and variables."
+            },
+            "method": {
+              "type": "string",
+              "description": "The HTTP method for this request step. E.g. GET, POST, PUT, DELETE, etc."
+            },
+            "note": {
+              "type": "string",
+              "description": "A description or note for this request step."
+            },
+            "auth": {
+              "type": "object",
+              "description": "An authentication object with either basic, oauth1, or client_certificate credentials for authenticating this request."
+            },
+            "headers": {
+              "type": "object",
+              "description": "An object with keys as header names matched to their values. Values can either be a single string or an array of strings."
+            },
+            "form": {
+              "type": "object",
+              "description": "An object with keys as form post parameter names matched to their values. Values can either be a single string or an array of strings."
+            },
+            "body": {
+              "type": "string",
+              "description": "A string to use as the body of the request."
+            },
+            "assertions": {
+              "type": "array",
+              "description": "A list of assertions to apply to the HTTP response from this request."
+            },
+            "variables": {
+              "type": "array",
+              "description": "A list of variables to extract out of the HTTP response from this request."
+            },
+            "scripts": {
+              "type": "array",
+              "description": "A list of post-response scripts to run after this request."
+            },
+            "before_scripts": {
+              "type": "array",
+              "description": "A list of pre-request scripts to run before this request."
+            }
+          }
+        },
+        {
           "$ref": "#/definitions/TestStep"
-        },
-        "url": {
-          "type": "string",
-          "description": "The URL to make a request to for this step. This may contain both query string parameters and variables."
-        },
-        "method": {
-          "type": "string",
-          "description": "The HTTP method for this request step. E.g. GET, POST, PUT, DELETE, etc."
-        },
-        "note": {
-          "type": "string",
-          "description": "A description or note for this request step."
-        },
-        "auth": {
-          "type": "object",
-          "description": "An authentication object with either basic, oauth1, or client_certificate credentials for authenticating this request."
-        },
-        "headers": {
-          "type": "object",
-          "description": "An object with keys as header names matched to their values. Values can either be a single string or an array of strings."
-        },
-        "form": {
-          "type": "object",
-          "description": "An object with keys as form post parameter names matched to their values. Values can either be a single string or an array of strings."
-        },
-        "body": {
-          "type": "string",
-          "description": "A string to use as the body of the request."
-        },
-        "assertions": {
-          "type": "array",
-          "description": "A list of assertions to apply to the HTTP response from this request."
-        },
-        "variables": {
-          "type": "array",
-          "description": "A list of variables to extract out of the HTTP response from this request."
-        },
-        "scripts": {
-          "type": "array",
-          "description": "A list of post-response scripts to run after this request."
-        },
-        "before_scripts": {
-          "type": "array",
-          "description": "A list of pre-request scripts to run before this request."
         }
-      }
-    },
-    "NewEnvironment": {
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "Name of this environment."
-        }
-      }
+      ]
     },
     "Environment": {
+      "required": [
+        "name"
+      ],
       "properties": {
         "integrations": {
           "type": "array",
@@ -1281,7 +1280,8 @@
           "type": "object",
         },
         "name": {
-          "type": "string"
+          "type": "string",
+          "description": "Name of this environment."
         },
         "initial_variables": {
           "type": "object"
@@ -1327,13 +1327,21 @@
           "type": "string"
         },
         "description": {
-          "type": "string"
+          "type": "string",
+          "description": "The description for the test."
         },
         "name": {
-          "type": "string"
+          "type": "string",
+          "description": "The name for the test."
         },
         "id": {
           "type": "string"
+        },
+        "trigger_url": {
+          "type": "string"
+        },
+        "last_run": {
+          "type": "object"
         }
       }
     },

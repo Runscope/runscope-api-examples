@@ -11,7 +11,7 @@
   "host": "api.runscope.com",
   "basePath": "/",
   "securityDefinitions": {
-    "auth": {
+    "runscope_auth": {
       "type": "oauth2",
       "flow": "accessCode",
       "authorizationUrl": "https://www.runscope.com/signin/oauth/authorize",
@@ -28,6 +28,13 @@
       }
     }
   },
+  "security": [
+    {
+      "runscope_auth": [
+        "api:read"
+      ]
+    }
+  ],
   "produces": [
     "application/json"
   ],
@@ -197,12 +204,7 @@
           "default": {
             "$ref": "#/responses/UnexpectedError"
           }
-        },
-        "security": [{
-          "auth": [
-            "api:read"
-          ]
-        }]
+        }
       },
       "post": {
         "summary": "Create a new bucket",
@@ -255,12 +257,7 @@
           "default": {
             "$ref": "#/responses/UnexpectedError"
           }
-        },
-        "security": [{
-          "auth": [
-            "api:read"
-          ]
-        }]
+        }
       },
       "delete": {
         "summary": "Delete a single bucket resource.",
@@ -321,12 +318,7 @@
           "default": {
             "$ref": "#/responses/UnexpectedError"
           }
-        },
-        "security": [{
-          "auth": [
-            "api:read"
-          ]
-        }]
+        }
       },
       "delete": {
         "summary": "Clear a bucket (remove all messages).",
@@ -490,12 +482,7 @@
           "default": {
             "$ref": "#/responses/UnexpectedError"
           }
-        },
-        "security": [{
-          "auth": [
-            "api:read"
-          ]
-        }]
+        }
       }
     },
     "/buckets/{bucketKey}/messages/{messageId}": {
@@ -522,12 +509,7 @@
           "default": {
             "$ref": "#/responses/UnexpectedError"
           }
-        },
-        "security": [{
-          "auth": [
-            "api:read"
-          ]
-        }]
+        }
       }
     },
     "/buckets/{bucketKey}/tests": {

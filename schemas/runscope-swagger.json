@@ -368,9 +368,79 @@
         }],
         "responses": {
           "200": {
-            "description": "New message.",
+            "description": "The response includes a list of result objects for the message(s) submitted. It will always return an array, even if only one message was created. The order of the result objects corresponds to the order of messages submitted.",
             "schema": {
-              "$ref": "#/definitions/Bucket"
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "status": {
+                        "description": "One of the following: success, error, or warning.",
+                        "type": "string"
+                      },
+                      "unique_identifier": {
+                        "description": "If the message had a unique_identifier, it will be returned in this field, to help match the responses to the messages that were submitted.",
+                        "type": "string"
+                      },
+                      "uuid": {
+                        "description": "This message's Runscope-generated ID.",
+                        "type": "string"
+                      },
+                      "warning": {
+                        "description": "An object representing warnings (non-fatal warnings) for this item. Only present if status is warning, otherwise this will be null.",
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "integer",
+                            "description": "A numeric error code for the specific problem we encountered with this message. (warning status only)"
+                          },
+                          "message": {
+                            "type": "string",
+                            "description": "A description of the problem we encountered with this message. (warning status only)"
+                          },
+                          "more_info": {
+                            "type": "string",
+                            "description": "A link to more help about the warning. (warning status only)"
+                          }
+                        }
+                      },
+                      "error": {
+                        "description": "An object representing errors for this item. Only present if status is error, otherwise this will be null.",
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "integer",
+                            "description": "A numeric error code for the specific problem we encountered with this message. (error status only)"
+                          },
+                          "message": {
+                            "type": "string",
+                            "description": "A description of the problem we encountered with this message. (error status only)"
+                          },
+                          "more_info": {
+                            "type": "string",
+                            "description": "A link to more help about the warning. (error status only)"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "meta": {
+                  "type": "object",
+                  "properties": {
+                    "succcess_count": {
+                      "type": "integer"
+                    },
+                    "warning_count": {
+                      "type": "integer"
+                    },
+                    "error_count": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
             }
           },
           "default": {

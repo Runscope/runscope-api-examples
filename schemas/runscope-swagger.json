@@ -1128,6 +1128,7 @@
       }
     },
     "Account": {
+      "type": "object",
       "properties": {
         "name": {
           "type": "string",
@@ -1300,6 +1301,7 @@
     "TestStepRequest": {
       "allOf": [
         {
+          "type": "object",
           "properties": {
             "url": {
               "type": "string",
@@ -1331,19 +1333,31 @@
             },
             "assertions": {
               "type": "array",
-              "description": "A list of assertions to apply to the HTTP response from this request."
+              "description": "A list of assertions to apply to the HTTP response from this request.",
+              "items": {
+                "$ref": "#/definitions/Assertion"
+              }
             },
             "variables": {
               "type": "array",
-              "description": "A list of variables to extract out of the HTTP response from this request."
+              "description": "A list of variables to extract out of the HTTP response from this request.",
+              "items": {
+                "$ref": "#/definitions/Variable"
+              }
             },
             "scripts": {
               "type": "array",
-              "description": "A list of post-response scripts to run after this request."
+              "description": "A list of post-response scripts to run after this request.",
+              "items": {
+                "type": "string"
+              }
             },
             "before_scripts": {
               "type": "array",
-              "description": "A list of pre-request scripts to run before this request."
+              "description": "A list of pre-request scripts to run before this request.",
+              "items": {
+                "type": "string"
+              }
             }
           }
         },
@@ -1353,9 +1367,7 @@
       ]
     },
     "Environment": {
-      "required": [
-        "name"
-      ],
+      "type": "object",
       "properties": {
         "integrations": {
           "type": "array",
@@ -1385,7 +1397,10 @@
         },
         "regions": {
           "type": "array",
-          "description": "An array of the region codes that this environment is using."
+          "description": "An array of the region codes that this environment is using.",
+          "items": {
+            "type": "string"
+          }
         },
         "version": {
           "type": "string"
@@ -1441,7 +1456,10 @@
         "client_certificate": {
           "type": "string"
         }
-      }
+      },
+      "required": [
+        "name"
+      ]
     },
     "Test": {
       "required": [
@@ -1491,6 +1509,7 @@
     "TestDetail": {
       "allOf": [
         {
+          "type": "object",
           "properties": {
             "version": {
               "type": "string"
@@ -1502,10 +1521,16 @@
               "$ref": "#/definitions/Environment"
             },
             "schedules": {
-              "type": "array"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Schedule"
+              }
             },
             "steps": {
-              "type": "array"
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
             },
             "last_run": {
               "type": "object"
@@ -1634,6 +1659,60 @@
         },
         "error": {
           "$ref": "#/definitions/Error400"
+        }
+      }
+    },
+    "Assertion": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "comparison": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "Variable": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "property": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "Schedule": {
+      "type": "object",
+      "properties": {
+        "environment_id": {
+          "type": "string"
+        },
+        "interval": {
+          "type": "string"
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "version": {
+          "type": "string"
+        },
+        "exported_at": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "string"
         }
       }
     }

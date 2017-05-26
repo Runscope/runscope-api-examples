@@ -316,10 +316,7 @@
         ],
         "responses": {
           "200": {
-            "description": "List of messages in a bucket",
-            "schema": {
-              "$ref": "#/definitions/Bucket"
-            }
+            "description": "List of messages in a bucket"
           },
           "default": {
             "$ref": "#/responses/UnexpectedError"
@@ -342,9 +339,6 @@
         "responses": {
           "204": {
             "description": "No content with no body.",
-            "schema": {
-              "$ref": "#/definitions/Bucket"
-            }
           },
           "default": {
             "$ref": "#/responses/UnexpectedError"
@@ -421,10 +415,7 @@
         ],
         "responses": {
           "200": {
-            "description": "List of error messages in a bucket",
-            "schema": {
-              "$ref": "#/definitions/Bucket"
-            }
+            "description": "List of error messages in a bucket"
           },
           "default": {
             "$ref": "#/responses/UnexpectedError"
@@ -456,10 +447,7 @@
         ],
         "responses": {
           "200": {
-            "description": "List of messages in a bucket",
-            "schema": {
-              "$ref": "#/definitions/Bucket"
-            }
+            "description": "List of messages in a bucket"
           },
           "default": {
             "$ref": "#/responses/UnexpectedError"

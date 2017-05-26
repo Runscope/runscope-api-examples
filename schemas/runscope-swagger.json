@@ -338,7 +338,7 @@
         }],
         "responses": {
           "204": {
-            "description": "No content with no body.",
+            "description": "No content with no body."
           },
           "default": {
             "$ref": "#/responses/UnexpectedError"
@@ -945,7 +945,7 @@
             "test:read"
           ]
         }]
-      },
+      }
     },
     "/buckets/{bucketKey}/environments": {
       "get": {
@@ -1335,7 +1335,7 @@
           "description": "The unique identifier for this test."
         },
         "emails": {
-          "type": "object",
+          "type": "object"
         },
         "name": {
           "type": "string",
@@ -1428,7 +1428,7 @@
           }
         },
         {
-          "$ref": "#/definitions/Test",
+          "$ref": "#/definitions/Test"
         }
       ]
     },

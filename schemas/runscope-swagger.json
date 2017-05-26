@@ -65,21 +65,25 @@
             "$ref": "#/responses/UnexpectedError"
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "account:email"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "account:email"
+            ]
+          }
+        ]
       }
     },
     "/teams/{teamId}/people": {
       "get": {
         "summary": "Teams Resource",
         "description": "List people and integrations associated with a given team.",
-        "parameters": [{
-          "$ref": "#/parameters/teamId"
-        }],
+        "parameters": [
+          {
+            "$ref": "#/parameters/teamId"
+          }
+        ],
         "tags": [
           "Account"
         ],
@@ -97,22 +101,26 @@
             "$ref": "#/responses/UnexpectedError"
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "account:email",
-            "team:read"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "account:email",
+              "team:read"
+            ]
+          }
+        ]
       }
     },
     "/teams/{teamId}/integrations": {
       "get": {
         "summary": "Team integrations list",
         "description": "Returns a list of integrations configured for the team.",
-        "parameters": [{
-          "$ref": "#/parameters/teamId"
-        }],
+        "parameters": [
+          {
+            "$ref": "#/parameters/teamId"
+          }
+        ],
         "tags": [
           "Account"
         ],
@@ -137,21 +145,25 @@
             "$ref": "#/responses/UnexpectedError"
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "team:read"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "team:read"
+            ]
+          }
+        ]
       }
     },
     "/teams/{teamId}/agents": {
       "get": {
         "summary": "Team agents list",
         "description": "List currently connected agents associated with a given team.",
-        "parameters": [{
-          "$ref": "#/parameters/teamId"
-        }],
+        "parameters": [
+          {
+            "$ref": "#/parameters/teamId"
+          }
+        ],
         "tags": [
           "Account"
         ],
@@ -169,12 +181,14 @@
             "$ref": "#/responses/UnexpectedError"
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "team:read"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "team:read"
+            ]
+          }
+        ]
       }
     },
     "/buckets": {
@@ -211,14 +225,16 @@
         "tags": [
           "Buckets"
         ],
-        "parameters": [{
-          "name": "NewBucket",
-          "in": "body",
-          "required": true,
-          "schema": {
-            "$ref": "#/definitions/NewBucket"
+        "parameters": [
+          {
+            "name": "NewBucket",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewBucket"
+            }
           }
-        }],
+        ],
         "responses": {
           "200": {
             "description": "Bucket details.",
@@ -230,12 +246,14 @@
             "$ref": "#/responses/UnexpectedError"
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "bucket:write"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "bucket:write"
+            ]
+          }
+        ]
       }
     },
     "/buckets/{bucketKey}": {
@@ -244,9 +262,11 @@
         "tags": [
           "Buckets"
         ],
-        "parameters": [{
-          "$ref": "#/parameters/bucketKey"
-        }],
+        "parameters": [
+          {
+            "$ref": "#/parameters/bucketKey"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Bucket details.",
@@ -264,9 +284,11 @@
         "tags": [
           "Buckets"
         ],
-        "parameters": [{
-          "$ref": "#/parameters/bucketKey"
-        }],
+        "parameters": [
+          {
+            "$ref": "#/parameters/bucketKey"
+          }
+        ],
         "responses": {
           "204": {
             "description": "No content with no body."
@@ -275,12 +297,14 @@
             "$ref": "#/responses/UnexpectedError"
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "bucket:write"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "bucket:write"
+            ]
+          }
+        ]
       }
     },
     "/buckets/{bucketKey}/messages": {
@@ -289,7 +313,8 @@
         "tags": [
           "Messages"
         ],
-        "parameters": [{
+        "parameters": [
+          {
             "$ref": "#/parameters/bucketKey"
           },
           {
@@ -325,9 +350,11 @@
         "tags": [
           "Messages"
         ],
-        "parameters": [{
-          "$ref": "#/parameters/bucketKey"
-        }],
+        "parameters": [
+          {
+            "$ref": "#/parameters/bucketKey"
+          }
+        ],
         "responses": {
           "204": {
             "description": "No content with no body."
@@ -336,28 +363,33 @@
             "$ref": "#/responses/UnexpectedError"
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "message:write"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "message:write"
+            ]
+          }
+        ]
       },
       "post": {
         "summary": "Create a message",
         "tags": [
           "Messages"
         ],
-        "parameters": [{
-          "$ref": "#/parameters/bucketKey"
-          }, {
-          "name": "NewMessage",
-          "in": "body",
-          "required": true,
-          "schema": {
-            "$ref": "#/definitions/NewMessage"
+        "parameters": [
+          {
+            "$ref": "#/parameters/bucketKey"
+          },
+          {
+            "name": "NewMessage",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewMessage"
+            }
           }
-        }],
+        ],
         "responses": {
           "200": {
             "description": "The response includes a list of result objects for the message(s) submitted. It will always return an array, even if only one message was created. The order of the result objects corresponds to the order of messages submitted.",
@@ -439,12 +471,14 @@
             "$ref": "#/responses/UnexpectedError"
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "message:write"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "message:write"
+            ]
+          }
+        ]
       }
     },
     "/buckets/{bucketKey}/errors": {
@@ -453,7 +487,8 @@
         "tags": [
           "Messages"
         ],
-        "parameters": [{
+        "parameters": [
+          {
             "$ref": "#/parameters/bucketKey"
           },
           {
@@ -491,7 +526,8 @@
         "tags": [
           "Messages"
         ],
-        "parameters": [{
+        "parameters": [
+          {
             "$ref": "#/parameters/bucketKey"
           },
           {
@@ -518,9 +554,11 @@
         "tags": [
           "Tests"
         ],
-        "parameters": [{
-          "$ref": "#/parameters/bucketKey"
-        }],
+        "parameters": [
+          {
+            "$ref": "#/parameters/bucketKey"
+          }
+        ],
         "responses": {
           "200": {
             "description": "List of tests for this bucket",
@@ -539,28 +577,33 @@
             }
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "test:read"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "test:read"
+            ]
+          }
+        ]
       },
       "post": {
         "summary": "Create a test.",
         "tags": [
           "Tests"
         ],
-        "parameters": [{
-          "$ref": "#/parameters/bucketKey"
-          }, {
-          "name": "NewTest",
-          "in": "body",
-          "required": true,
-          "schema": {
-            "$ref": "#/definitions/Test"
+        "parameters": [
+          {
+            "$ref": "#/parameters/bucketKey"
+          },
+          {
+            "name": "NewTest",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Test"
+            }
           }
-        }],
+        ],
         "responses": {
           "200": {
             "description": "List of tests for this bucket",
@@ -579,12 +622,14 @@
             }
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "test:write"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "test:write"
+            ]
+          }
+        ]
       }
     },
     "/buckets/{bucketKey}/tests/{testId}": {
@@ -593,11 +638,14 @@
         "tags": [
           "Tests"
         ],
-        "parameters": [{
+        "parameters": [
+          {
             "$ref": "#/parameters/bucketKey"
-          }, {
+          },
+          {
             "$ref": "#/parameters/testId"
-        }],
+          }
+        ],
         "responses": {
           "200": {
             "description": "Returns an object with the details of the given test.",
@@ -609,23 +657,28 @@
             "$ref": "#/responses/UnexpectedError"
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "test:read"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "test:read"
+            ]
+          }
+        ]
       },
       "put": {
         "summary": "Modify a test's name, description, default environment and its steps. To modify other individual properties of a test, make requests to the steps, environments, and schedules subresources of the test.",
         "tags": [
           "Tests"
         ],
-        "parameters": [{
+        "parameters": [
+          {
             "$ref": "#/parameters/bucketKey"
-          }, {
+          },
+          {
             "$ref": "#/parameters/testId"
-        }],
+          }
+        ],
         "responses": {
           "201": {
             "description": "Returns 201 and the updated test's JSON description if the test is successfully updated.",
@@ -637,34 +690,41 @@
             "$ref": "#/responses/UnexpectedError"
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "test:write"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "test:write"
+            ]
+          }
+        ]
       },
       "delete": {
         "summary": "Delete a test, including all steps, schedules, test-specific environments and results.",
         "tags": [
           "Tests"
         ],
-        "parameters": [{
+        "parameters": [
+          {
             "$ref": "#/parameters/bucketKey"
-          }, {
+          },
+          {
             "$ref": "#/parameters/testId"
-        }],
+          }
+        ],
         "responses": {
           "204": {
             "description": "No content with no body."
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "test:write"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "test:write"
+            ]
+          }
+        ]
       }
     },
     "/buckets/{bucketKey}/tests/{testId}/steps": {
@@ -673,31 +733,38 @@
         "tags": [
           "Test Steps"
         ],
-        "parameters": [{
-          "$ref": "#/parameters/bucketKey"
-          }, {
-          "$ref": "#/parameters/testId"
-        }],
+        "parameters": [
+          {
+            "$ref": "#/parameters/bucketKey"
+          },
+          {
+            "$ref": "#/parameters/testId"
+          }
+        ],
         "responses": {
           "200": {
             "description": "List of test steps for a test"
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "test:read"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "test:read"
+            ]
+          }
+        ]
       },
       "post": {
         "summary": "Add new test step.",
         "tags": [
           "Test Steps"
         ],
-        "parameters": [{
+        "parameters": [
+          {
             "$ref": "#/parameters/bucketKey"
-          }, {
+          },
+          {
             "$ref": "#/parameters/testId"
           },
           {
@@ -720,12 +787,14 @@
             }
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "test:write"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "test:write"
+            ]
+          }
+        ]
       }
     },
     "/buckets/{bucketKey}/tests/{testId}/steps/{stepId}": {
@@ -734,13 +803,17 @@
         "tags": [
           "Test Steps"
         ],
-        "parameters": [{
+        "parameters": [
+          {
             "$ref": "#/parameters/bucketKey"
-          }, {
+          },
+          {
             "$ref": "#/parameters/testId"
-          }, {
+          },
+          {
             "$ref": "#/parameters/stepId"
-          }, {
+          },
+          {
             "name": "TestStep",
             "in": "body",
             "required": true,
@@ -760,21 +833,25 @@
             }
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "test:write"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "test:write"
+            ]
+          }
+        ]
       },
       "delete": {
         "summary": "Delete a step from a test.",
         "tags": [
           "Test Steps"
         ],
-        "parameters": [{
+        "parameters": [
+          {
             "$ref": "#/parameters/bucketKey"
-          }, {
+          },
+          {
             "$ref": "#/parameters/testId"
           },
           {
@@ -786,12 +863,14 @@
             "description": "No content with no body."
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "test:write"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "test:write"
+            ]
+          }
+        ]
       }
     },
     "/buckets/{bucketKey}/tests/{testId}/environments": {
@@ -800,9 +879,11 @@
         "tags": [
           "Test Environments"
         ],
-        "parameters": [{
+        "parameters": [
+          {
             "$ref": "#/parameters/bucketKey"
-          }, {
+          },
+          {
             "$ref": "#/parameters/testId"
           }
         ],
@@ -824,19 +905,22 @@
             }
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "test:read"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "test:read"
+            ]
+          }
+        ]
       },
       "post": {
         "summary": "Create new test environment.",
         "tags": [
           "Test Environments"
         ],
-        "parameters": [{
+        "parameters": [
+          {
             "$ref": "#/parameters/bucketKey"
           },
           {
@@ -856,12 +940,14 @@
             "description": "Details of the new test environment."
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "test:write"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "test:write"
+            ]
+          }
+        ]
       }
     },
     "/buckets/{bucketKey}/tests/{testId}/environments/{environmentId}": {
@@ -870,7 +956,8 @@
         "tags": [
           "Test Environments"
         ],
-        "parameters": [{
+        "parameters": [
+          {
             "$ref": "#/parameters/bucketKey"
           },
           {
@@ -893,12 +980,14 @@
             "description": "Details of the modified test environment."
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "test:write"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "test:write"
+            ]
+          }
+        ]
       }
     },
     "/buckets/{bucketKey}/tests/{testId}/metrics": {
@@ -907,9 +996,11 @@
         "tags": [
           "Tests"
         ],
-        "parameters": [{
+        "parameters": [
+          {
             "$ref": "#/parameters/bucketKey"
-          }, {
+          },
+          {
             "$ref": "#/parameters/testId"
           }
         ],
@@ -921,12 +1012,14 @@
             }
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "test:read"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "test:read"
+            ]
+          }
+        ]
       }
     },
     "/buckets/{bucketKey}/environments": {
@@ -935,27 +1028,32 @@
         "tags": [
           "Shared Environments"
         ],
-        "parameters": [{
-          "$ref": "#/parameters/bucketKey"
-        }],
+        "parameters": [
+          {
+            "$ref": "#/parameters/bucketKey"
+          }
+        ],
         "responses": {
           "200": {
             "description": "List of shared environments belonging to this bucket."
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "test:read"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "test:read"
+            ]
+          }
+        ]
       },
       "post": {
         "summary": "Create new shared environment.",
         "tags": [
           "Shared Environments"
         ],
-        "parameters": [{
+        "parameters": [
+          {
             "$ref": "#/parameters/bucketKey"
           },
           {
@@ -972,12 +1070,14 @@
             "description": "Details of the new test environment."
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "test:write"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "test:write"
+            ]
+          }
+        ]
       }
     },
     "/buckets/{bucketKey}/environments/{environmentId}": {
@@ -986,7 +1086,8 @@
         "tags": [
           "Shared Environments"
         ],
-        "parameters": [{
+        "parameters": [
+          {
             "$ref": "#/parameters/bucketKey"
           },
           {
@@ -1006,12 +1107,14 @@
             "description": "Details of the modified test environment."
           }
         },
-        "security": [{
-          "auth": [
-            "api:read",
-            "test:write"
-          ]
-        }]
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read",
+              "test:write"
+            ]
+          }
+        ]
       }
     }
   },

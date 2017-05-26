@@ -11,7 +11,7 @@
   "host": "api.runscope.com",
   "basePath": "/",
   "securityDefinitions": {
-    "runscope_auth": {
+    "auth": {
       "type": "oauth2",
       "flow": "accessCode",
       "authorizationUrl": "https://www.runscope.com/signin/oauth/authorize",
@@ -59,7 +59,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "account:email"
           ]
@@ -91,7 +91,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "account:email",
             "team:read"
@@ -131,7 +131,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "team:read"
           ]
@@ -163,7 +163,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "team:read"
           ]
@@ -199,7 +199,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read"
           ]
         }]
@@ -229,7 +229,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "bucket:write"
           ]
@@ -257,7 +257,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read"
           ]
         }]
@@ -279,7 +279,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "bucket:write"
           ]
@@ -323,7 +323,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read"
           ]
         }]
@@ -345,7 +345,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "message:write"
           ]
@@ -448,7 +448,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "message:write"
           ]
@@ -492,7 +492,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read"
           ]
         }]
@@ -524,7 +524,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read"
           ]
         }]
@@ -558,7 +558,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "test:read"
           ]
@@ -598,7 +598,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "test:write"
           ]
@@ -628,7 +628,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "test:read"
           ]
@@ -656,7 +656,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "test:write"
           ]
@@ -678,7 +678,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "test:write"
           ]
@@ -702,7 +702,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "test:read"
           ]
@@ -739,7 +739,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "test:write"
           ]
@@ -779,7 +779,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "test:write"
           ]
@@ -805,7 +805,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "test:write"
           ]
@@ -843,7 +843,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "test:read"
           ]
@@ -875,7 +875,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "test:write"
           ]
@@ -912,7 +912,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "test:write"
           ]
@@ -940,7 +940,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "test:read"
           ]
@@ -962,7 +962,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "test:read"
           ]
@@ -991,7 +991,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "test:write"
           ]
@@ -1025,7 +1025,7 @@
           }
         },
         "security": [{
-          "runscope_auth": [
+          "auth": [
             "api:read",
             "test:write"
           ]

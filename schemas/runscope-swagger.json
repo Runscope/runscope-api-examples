@@ -218,7 +218,20 @@
           "default": {
             "$ref": "#/responses/UnexpectedError"
           }
-        }
+        },
+        "security": [
+          {
+            "runscope_auth": [
+              "api:read"
+            ]
+          },
+          {
+            "runscope_auth": [
+              "api:read",
+              "bucket:auth_token"
+            ]
+          }
+        ]
       },
       "post": {
         "summary": "Create a new bucket",

@@ -1713,10 +1713,7 @@
           "type": "string"
         },
         "note": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": "string"
         },
         "version": {
           "type": "string"

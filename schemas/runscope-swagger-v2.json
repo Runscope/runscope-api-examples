@@ -41,6 +41,7 @@
   "paths": {
     "/account": {
       "get": {
+        "operationId": "getAccount",
         "summary": "Account Resource",
         "description": "Information about the authorized account.",
         "tags": [
@@ -77,6 +78,7 @@
     },
     "/teams/{teamId}/people": {
       "get": {
+        "operationId": "listPeople",
         "summary": "Teams Resource",
         "description": "List people and integrations associated with a given team.",
         "parameters": [
@@ -114,6 +116,7 @@
     },
     "/teams/{teamId}/integrations": {
       "get": {
+        "operationId": "listIntegrations",
         "summary": "Team integrations list",
         "description": "Returns a list of integrations configured for the team.",
         "parameters": [
@@ -157,6 +160,7 @@
     },
     "/teams/{teamId}/agents": {
       "get": {
+        "operationId": "listAgents",
         "summary": "Team agents list",
         "description": "List currently connected agents associated with a given team.",
         "parameters": [
@@ -193,6 +197,7 @@
     },
     "/buckets": {
       "get": {
+        "operationId": "listBuckets",
         "summary": "Returns a list of buckets.",
         "tags": [
           "Buckets"
@@ -234,6 +239,7 @@
         ]
       },
       "post": {
+        "operationId": "createBucket",
         "summary": "Create a new bucket",
         "tags": [
           "Buckets"
@@ -271,6 +277,7 @@
     },
     "/buckets/{bucketKey}": {
       "get": {
+        "operationId": "getBucket",
         "summary": "Returns a single bucket resource.",
         "tags": [
           "Buckets"
@@ -284,7 +291,15 @@
           "200": {
             "description": "Bucket details.",
             "schema": {
-              "$ref": "#/definitions/Bucket"
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/Bucket"
+                },
+                "meta": {
+                  "$ref": "#/definitions/Meta"
+                }
+              }
             }
           },
           "default": {
@@ -293,6 +308,7 @@
         }
       },
       "delete": {
+        "operationId": "deleteBucket",
         "summary": "Delete a single bucket resource.",
         "tags": [
           "Buckets"
@@ -322,6 +338,7 @@
     },
     "/buckets/{bucketKey}/messages": {
       "get": {
+        "operationId": "listMessages",
         "summary": "Retrieve a list of messages in a bucket",
         "tags": [
           "Messages"
@@ -359,6 +376,7 @@
         }
       },
       "delete": {
+        "operationId": "deleteMessages",
         "summary": "Clear a bucket (remove all messages).",
         "tags": [
           "Messages"
@@ -386,6 +404,7 @@
         ]
       },
       "post": {
+        "operationId": "createMessage",
         "summary": "Create a message",
         "tags": [
           "Messages"
@@ -496,9 +515,10 @@
     },
     "/buckets/{bucketKey}/errors": {
       "get": {
+        "operationId": "listErrors",
         "summary": "Retrieve a list of error messages in a bucket",
         "tags": [
-          "Messages"
+          "Errors"
         ],
         "parameters": [
           {
@@ -535,6 +555,7 @@
     },
     "/buckets/{bucketKey}/messages/{messageId}": {
       "get": {
+        "operationId": "getMessage",
         "summary": "Retrieve the details for a single message.",
         "tags": [
           "Messages"
@@ -563,6 +584,7 @@
     },
     "/buckets/{bucketKey}/tests": {
       "get": {
+        "operationId": "listTests",
         "summary": "Returns a list of tests.",
         "tags": [
           "Tests"
@@ -600,6 +622,7 @@
         ]
       },
       "post": {
+        "operationId": "createTest",
         "summary": "Create a test.",
         "tags": [
           "Tests"
@@ -619,14 +642,11 @@
         ],
         "responses": {
           "200": {
-            "description": "List of tests for this bucket",
+            "description": "Returns the created test.",
             "schema": {
               "properties": {
                 "data": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/Test"
-                  }
+                  "$ref": "#/definitions/Test"
                 },
                 "meta": {
                   "$ref": "#/definitions/Meta"
@@ -647,6 +667,7 @@
     },
     "/buckets/{bucketKey}/tests/{testId}": {
       "get": {
+        "operationId": "getTest",
         "summary": "Retrieve the details of a given test by ID.",
         "tags": [
           "Tests"
@@ -663,7 +684,15 @@
           "200": {
             "description": "Returns an object with the details of the given test.",
             "schema": {
-              "$ref": "#/definitions/TestDetail"
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/TestDetail"
+                },
+                "meta": {
+                  "$ref": "#/definitions/Meta"
+                }
+              }
             }
           },
           "default": {
@@ -680,6 +709,7 @@
         ]
       },
       "put": {
+        "operationId": "updateTest",
         "summary": "Modify a test's name, description, default environment and its steps. To modify other individual properties of a test, make requests to the steps, environments, and schedules subresources of the test.",
         "tags": [
           "Tests"
@@ -713,6 +743,7 @@
         ]
       },
       "delete": {
+        "operationId": "deleteTest",
         "summary": "Delete a test, including all steps, schedules, test-specific environments and results.",
         "tags": [
           "Tests"
@@ -742,6 +773,7 @@
     },
     "/buckets/{bucketKey}/tests/{testId}/steps": {
       "get": {
+        "operationId": "listSteps",
         "summary": "List test steps for a test.",
         "tags": [
           "Test Steps"
@@ -756,7 +788,20 @@
         ],
         "responses": {
           "200": {
-            "description": "List of test steps for a test"
+            "description": "List of test steps for a test",
+            "schema": {
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/TestStep"
+                  }
+                },
+                "meta": {
+                  "$ref": "#/definitions/Meta"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -769,6 +814,7 @@
         ]
       },
       "post": {
+        "operationId": "createStep",
         "summary": "Add new test step.",
         "tags": [
           "Test Steps"
@@ -791,7 +837,20 @@
         ],
         "responses": {
           "201": {
-            "description": "Details of the new test step."
+            "description": "Returns a full list of the test's steps, with the newest test step at the end of the list.",
+            "schema": {
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/TestStep"
+                  }
+                },
+                "meta": {
+                  "$ref": "#/definitions/Meta"
+                }
+              }
+            }
           },
           "400": {
             "description": "Must send valid JSON object to create a new test step",
@@ -812,6 +871,7 @@
     },
     "/buckets/{bucketKey}/tests/{testId}/steps/{stepId}": {
       "put": {
+        "operationId": "updateStep",
         "summary": "Update the details of a single test step.",
         "tags": [
           "Test Steps"
@@ -837,7 +897,17 @@
         ],
         "responses": {
           "200": {
-            "description": "List of test steps for a test"
+            "description": "Returns the updated details of the test step.",
+            "schema": {
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/TestStep"
+                },
+                "meta": {
+                  "$ref": "#/definitions/Meta"
+                }
+              }
+            }
           },
           "400": {
             "description": "Unable to update template '{stepId}' for test '{testId}'",
@@ -856,6 +926,7 @@
         ]
       },
       "delete": {
+        "operationId": "deleteStep",
         "summary": "Delete a step from a test.",
         "tags": [
           "Test Steps"
@@ -888,6 +959,7 @@
     },
     "/buckets/{bucketKey}/tests/{testId}/environments": {
       "get": {
+        "operationId": "listEnvironments",
         "summary": "Return details of the test's environments (only those that belong to the specified test)",
         "tags": [
           "Test Environments"
@@ -928,6 +1000,7 @@
         ]
       },
       "post": {
+        "operationId": "createEnvironment",
         "summary": "Create new test environment.",
         "tags": [
           "Test Environments"
@@ -965,6 +1038,7 @@
     },
     "/buckets/{bucketKey}/tests/{testId}/environments/{environmentId}": {
       "put": {
+        "operationId": "updateEnvironment",
         "summary": "Update the details of a test environment.",
         "tags": [
           "Test Environments"
@@ -1005,9 +1079,10 @@
     },
     "/buckets/{bucketKey}/tests/{testId}/metrics": {
       "get": {
+        "operationId": "listMetrics",
         "summary": "Return details of the test metrics for the specified timeframe.",
         "tags": [
-          "Tests"
+          "Test Metrics"
         ],
         "parameters": [
           {
@@ -1037,6 +1112,7 @@
     },
     "/buckets/{bucketKey}/environments": {
       "get": {
+        "operationId": "listSharedEnvironments",
         "summary": "Returns list of shared environments for a specified bucket.",
         "tags": [
           "Shared Environments"
@@ -1061,6 +1137,7 @@
         ]
       },
       "post": {
+        "operationId": "createSharedEnvironment",
         "summary": "Create new shared environment.",
         "tags": [
           "Shared Environments"
@@ -1095,6 +1172,7 @@
     },
     "/buckets/{bucketKey}/environments/{environmentId}": {
       "put": {
+        "operationId": "updateSharedEnvironment",
         "summary": "Update the details of a shared environment.",
         "tags": [
           "Shared Environments"
@@ -1249,15 +1327,15 @@
             },
             "form": {
               "type": "string",
-              "description": "JSON object of set of form fields included in a POST request. \nValues can either be represented as a string or as an array of strings.\n"
+              "description": "JSON object of set of form fields included in a POST request.\nValues can either be represented as a string or as an array of strings.\n"
             },
             "body": {
               "type": "string",
-              "description": "HTTP request body (most commonly used for POST and PUT requests). If the\nrequest body contains binary data that cannot be included directly in the \nJSON, encode the content with Base64 and include the body_encoding attribute accordingly.\n"
+              "description": "HTTP request body (most commonly used for POST and PUT requests). If the\nrequest body contains binary data that cannot be included directly in the\nJSON, encode the content with Base64 and include the body_encoding attribute accordingly.\n"
             },
             "body_encoding": {
               "type": "string",
-              "description": "If the request body was encoded with Base64, this field should be present and set to \n\"base64\". If not specified, defaults to \"plaintext\"\n"
+              "description": "If the request body was encoded with Base64, this field should be present and set to\n\"base64\". If not specified, defaults to \"plaintext\"\n"
             },
             "timestamp": {
               "type": "number",
@@ -1275,7 +1353,7 @@
             },
             "reason": {
               "type": "string",
-              "description": "Textual description of HTTP status code. This will be set automatically if not \nprovided in the API call. For example, if the status code is 404, this will be \nset to \"Not Found\" unless you explicitly specify a different reason.\n"
+              "description": "Textual description of HTTP status code. This will be set automatically if not\nprovided in the API call. For example, if the status code is 404, this will be\nset to \"Not Found\" unless you explicitly specify a different reason.\n"
             },
             "headers": {
               "type": "string",
@@ -1287,7 +1365,7 @@
             },
             "body_encoding": {
               "type": "string",
-              "description": "If the request body was encoded with Base64, this field should be present and set to \n\"base64\". If not specified, defaults to \"plaintext\"\n"
+              "description": "If the request body was encoded with Base64, this field should be present and set to\n\"base64\". If not specified, defaults to \"plaintext\"\n"
             },
             "response_time": {
               "type": "number",
@@ -1304,14 +1382,28 @@
       }
     },
     "TestStep": {
+      "type": "object",
+      "discriminator": "step_type",
       "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique ID for this test step."
+        },
+        "note": {
+          "type": "string",
+          "description": "A description or note for this request step."
+        },
         "step_type": {
           "type": "string",
           "description": "Type of test step -- request, pause, condition, ghost-inspector, or subtest."
         }
-      }
+      },
+      "required": [
+        "step_type"
+      ]
     },
     "TestStepRequest": {
+      "x-discriminator-value": "request",
       "allOf": [
         {
           "type": "object",
@@ -1324,16 +1416,18 @@
               "type": "string",
               "description": "The HTTP method for this request step. E.g. GET, POST, PUT, DELETE, etc."
             },
-            "note": {
-              "type": "string",
-              "description": "A description or note for this request step."
-            },
             "auth": {
               "type": "object",
               "description": "An authentication object with either basic, oauth1, or client_certificate credentials for authenticating this request."
             },
             "headers": {
               "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "description": "An object with keys as header names matched to their values. Values can either be a single string or an array of strings."
             },
             "form": {
@@ -1531,7 +1625,10 @@
               "type": "integer"
             },
             "environments": {
-              "$ref": "#/definitions/Environment"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Environment"
+              }
             },
             "schedules": {
               "type": "array",
@@ -1678,22 +1775,62 @@
     "Assertion": {
       "type": "object",
       "properties": {
-        "source": {
-          "type": "string"
-        },
         "comparison": {
+          "$ref": "#/definitions/Comparison"
+        },
+        "source": {
+          "$ref": "#/definitions/Source"
+        },
+        "property": {
           "type": "string"
         },
         "value": {
           "type": "string"
         }
-      }
+      },
+      "required": [
+        "comparison",
+        "source",
+        "value"
+      ]
+    },
+    "Source": {
+      "type": "string",
+      "enum": [
+        "response_status",
+        "response_headers",
+        "response_json",
+        "response_xml",
+        "response_text",
+        "response_time",
+        "response_size"
+      ]
+    },
+    "Comparison": {
+      "type": "string",
+      "enum": [
+        "equal",
+        "empty",
+        "not_empty",
+        "not_equal",
+        "contains",
+        "does_not_contain",
+        "is_a_number",
+        "equal_number",
+        "is_less_than",
+        "is_less_than_or_equal",
+        "is_greater_than",
+        "is_greater_than_or_equal",
+        "has_key",
+        "has_value",
+        "is_null"
+      ]
     },
     "Variable": {
       "type": "object",
       "properties": {
         "source": {
-          "type": "string"
+          "$ref": "#/definitions/Source"
         },
         "property": {
           "type": "string"

@@ -1,0 +1,25 @@
+{
+  "name": "runscope-json-schema",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samaybar/runscope-json-schema.git"
+  },
+  "author": "sra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samaybar/runscope-json-schema/issues"
+  },
+  "homepage": "https://github.com/samaybar/runscope-json-schema#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bunyan": "^1.8.12",
+    "bunyan-format": "^0.2.1",
+    "json-schema-generator": "https://github.com/samaybar/json-schema-generator/tarball/master"
+  }
+}

@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/samaybar/runscope-json-schema#readme",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.19.0",
     "bunyan": "^1.8.12",
     "bunyan-format": "^0.2.1",
     "json-schema-generator": "https://github.com/samaybar/json-schema-generator/tarball/master"
